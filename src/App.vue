@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import html2pdf from "html2pdf.js";
 </script>
 
 <script>
@@ -9,22 +10,16 @@ export default {
     return {
       title: 'Tittel',
       description: 'beskrivelse',
-      verdier: [ {tittel: 'tittel', fokus: 'fokus'}]
+      verdier: [ {tittel: 'tittel', fokus: 'fokus'}],
+      hendelser : [ {tittel: 'tittel', fokus: 'fokus'}]
     }
   },
   methods: {
-
-    // on data change
-    onInput() {
-      console.log('onInput');
-    },
-    // export text
-    exportText() {
-      let text = '';
-      text += this.title + '\n';
-      text += this.description + '\n';
-      text += this.verdier.map(verdi => verdi.tittel + ' ' + verdi.fokus).join('\n');
-      console.log(text);
+    exportToPDF() {
+      html2pdf(document.getElementById("preview"), {
+        margin: 1,
+        filename: "ros.pdf",
+      });
     },
     //  export json
     exportJson() {
@@ -37,8 +32,6 @@ export default {
       localStorage.setItem('title', title);
       localStorage.setItem('description', description);
       localStorage.setItem('verdier', JSON.stringify(verdier));
-
-
     },
     // load from local storage
     load() {
@@ -83,13 +76,13 @@ export default {
 <template>
 
   <nav>
-    <button @click="exportText">Export text</button>
     <button @click="exportJson">Export json</button>
     <button @click="save">Save</button>
     <button @click="load">Load</button>
     <button @click="fullEdit">Edit</button>
     <button @click="fullPreview">Preview</button>
     <button @click="sideBySide">Side-by-side</button>
+    <button @click="exportToPDF">Export to PDF</button>
   </nav>
 
   <div id="edit" class="edit">
@@ -100,10 +93,6 @@ export default {
     <h2>Verdier</h2>
     <button @click="toggle('values')">?</button>
     <p id="values">Verdiene i løsningen man ønsker å beskytte (skrive noe mer om K I T) og hva det betyr</p>
-
-
-
-
     <table>
       <tr>
         <th>Tittel</th>
@@ -116,6 +105,16 @@ export default {
       </tr>
     </table>
   <button @click="verdier.push({tittel: 'tittel', fokus: 'fokus'})">Legg til</button>
+
+
+
+<!--    Nr.
+    Hendelse
+    Eksisterende tiltak
+    Anbefalte nye tiltak-->
+
+
+
   </div>
 
   <div id="preview" class="preview">
@@ -135,27 +134,78 @@ export default {
     </tr>
 
   </table>
+  <table class="matrix">
+    <tr>
+      <td>Svært stor</td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="red"></td>
+      <td class="red"></td>
+      <td class="red"></td>
+    </tr>
+    <tr>
+      <td>Stor</td>
+      <td class="green"></td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="red"></td>
+      <td class="red"></td>
+    </tr>
+    <tr>
+      <td>Moderat</td>
+      <td class="green"></td>
+      <td class="green"></td>
+      <td class="yellow"></td>
+      <td class="red"></td>
+      <td class="red"></td>
+    </tr>
+    <tr>
+      <td>Liten</td>
+      <td class="green"></td>
+      <td class="green"></td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="red"></td>
+    </tr>
+    <tr>
+      <td>Liten</td>
+      <td class="green"></td>
+      <td class="green"></td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Ubetydelig</td>
+      <td>Lav</td>
+      <td>Moderat</td>
+      <td>Alvorlig</td>
+      <td>Svært alvorlig</td>
+    </tr>
+  </table>
   </div>
 </template>
 
-<!--<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-</template>-->
-
 <style scoped>
+
+table.matrix  {
+  table-layout: fixed;
+  width : 100%;
+}
+table.matrix td {
+  border: 1px solid black;
+  overflow: hidden;
+}
+td.yellow {
+  background: yellow;
+}
+td.green {
+  background: green;
+}
+td.red {
+  background: red;
+}
 
 nav {
   background: #2c3e50;
