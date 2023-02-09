@@ -115,11 +115,11 @@ export default {
     <button @click="exportJsonToConsole">Dump Json to console</button>
   </nav>
   <div id="edit" class="edit">
-  <h2>Overskrift</h2>
+  <h2>Overskriften til rosen</h2>
   <input class="single" v-model="title">
-  <h2>Beskrivelse</h2>
+  <h2>Beskrivelse av løsningen</h2>
     <textarea v-model="description"></textarea>
-    <h2>Verdier</h2>
+    <h2>Verdier som skal beskyttes</h2>
     <button @click="toggle('values')">?</button>
     <p id="values">Verdiene i løsningen man ønsker å beskytte (skrive noe mer om K I T) og hva det betyr</p>
     <table>
@@ -136,13 +136,15 @@ export default {
   <button @click="pushVerdi">Legg til</button>
     <table>
     <tr>
+      <th>Nr.</th>
       <th>Hendelse</th>
       <th>Eksisteredne tiltak</th>
       <th>Planlagte tiltak</th>
       <th>Sannsynlighet</th>
       <th>Konsekvens</th>
     </tr>
-    <tr v-for="hendelse in hendelser">
+    <tr v-for="(hendelse, index) in hendelser">
+      <td>{{ index + 1 }}</td>
       <td><input v-model="hendelse.hendelse"></td>
       <td><input v-model="hendelse.situasjon"></td>
       <td><input v-model="hendelse.action"></td>
@@ -189,10 +191,21 @@ export default {
     </tr>
 
   </table>
+
   <table class="matrix">
     <tr>
       <td>Svært stor</td>
-      <td class="yellow"></td>
+      <td class="yellow">
+        <ul class="comma-list">
+        <template v-for="(hendelse, index) in hendelser">
+
+        <li v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '1'">
+          {{ index + 1 }}
+        </li>
+
+        </template>
+        </ul>
+      </td>
       <td class="yellow"></td>
       <td class="red"></td>
       <td class="red"></td>
@@ -244,6 +257,22 @@ export default {
 
 <style scoped>
 
+
+ul.comma-list {
+  display: inline;
+  list-style: none;
+}
+
+.comma-list li {
+  display: inline;
+}
+
+.comma-list li::after {
+  content: ", ";
+}
+.comma-list li:last-child::after {
+  content: "";
+}
 
 table.matrix  {
   table-layout: fixed;
