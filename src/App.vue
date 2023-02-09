@@ -118,7 +118,7 @@ export default {
   <h2>Overskriften til rosen</h2>
   <input class="single" v-model="title">
   <h2>Beskrivelse av løsningen</h2>
-    <textarea v-model="description"></textarea>
+    <textarea class="long-text" v-model="description"></textarea>
     <h2>Verdier som skal beskyttes</h2>
     <button @click="toggle('values')">?</button>
     <p id="values">Verdiene i løsningen man ønsker å beskytte (skrive noe mer om K I T) og hva det betyr</p>
@@ -145,9 +145,9 @@ export default {
     </tr>
     <tr v-for="(hendelse, index) in hendelser">
       <td>{{ index + 1 }}</td>
-      <td><input v-model="hendelse.hendelse"></td>
-      <td><input v-model="hendelse.situasjon"></td>
-      <td><input v-model="hendelse.action"></td>
+      <td><textarea class="medium-text" v-model="hendelse.hendelse"></textarea></td>
+      <td><textarea class="medium-text" v-model="hendelse.situasjon"> </textarea></td>
+      <td><textarea class="medium-text" v-model="hendelse.action"></textarea></td>
       <td>
         <select v-model="hendelse.sannsynlighet">
         <option value="1">Meget Liten</option>
@@ -179,7 +179,7 @@ export default {
   <pre>{{ description }}</pre>
 
   <h2>Verdier i løsningen</h2>
-  <table class="preview">
+  <table class="data">
     <tr>
       <th>Tittel</th>
       <th>Fokus</th>
@@ -447,7 +447,6 @@ export default {
 
 <style scoped>
 
-
 ul.comma-list {
   display: inline;
   list-style: none;
@@ -494,11 +493,21 @@ nav {
   top: 0;
   position: fixed;
 
-
 }
 table {
   border-collapse: collapse;
   width: 100%;
+}
+
+table.data {
+  border: solid 1px black;
+  margin: 15px 0;
+
+}
+
+table.data td {
+  border: solid 2px black;
+  padding: 5px;
 }
 
 input {
@@ -521,13 +530,18 @@ div.preview {
   #overflow: auto;
 }
 
-
-
-textarea {
+textarea.long-text {
   width: 100%;
   height: 300px;
   resize: none;
 }
+
+textarea.medium-text {
+  width: 100%;
+  height: 50px;
+  resize: none;
+}
+
 pre {
   white-space: pre-wrap;
 }
