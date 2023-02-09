@@ -10,8 +10,8 @@ export default {
     return {
       title: 'Tittel',
       description: 'beskrivelse',
-      verdier: [ {tittel: 'tittel', fokus: 'fokus'}],
-      hendelser : [ {tittel: 'tittel', fokus: 'fokus'}]
+      verdier: [ {tittel: '', fokus: ''}],
+      hendelser : [ {hendelse: '', situasjon: '', action: ''}]
     }
   },
   methods: {
@@ -23,8 +23,14 @@ export default {
     },
     //  export json
     exportJson() {
-      let {title, description, verdier} = this;
-      console.log(JSON.stringify({title, description, verdier}));
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(this, null, 2)], {
+        type: "application/json"
+      }));
+      a.setAttribute("download", "data.json");
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     },
     // save to local storage
     save() {
@@ -42,14 +48,14 @@ export default {
     fullEdit() {
       let edit = document.getElementById('edit');
       let preview = document.getElementById('preview');
-      edit.style.width = '195%'
+      edit.style.width = '100%'
       edit.style.display = 'block';
       preview.style.display = 'none';
     },
     fullPreview() {
       let edit = document.getElementById('edit');
       let preview = document.getElementById('preview');
-      preview.style.width = '195%'
+      preview.style.width = '100%'
       preview.style.display = 'block';
       edit.style.display = 'none';
     },
@@ -76,15 +82,15 @@ export default {
 <template>
 
   <nav>
-    <button @click="exportJson">Export json</button>
+
     <button @click="save">Save</button>
     <button @click="load">Load</button>
-    <button @click="fullEdit">Edit</button>
-    <button @click="fullPreview">Preview</button>
+    <button @click="fullEdit">Edit view</button>
+    <button @click="fullPreview">Preview view</button>
     <button @click="sideBySide">Side-by-side</button>
-    <button @click="exportToPDF">Export to PDF</button>
+    <button @click="exportJson">Save as Json</button>
+    <button @click="exportToPDF">Save as pdf</button>
   </nav>
-
   <div id="edit" class="edit">
   <h2>Overskrift</h2>
   <input class="single" v-model="title">
@@ -104,7 +110,16 @@ export default {
         <td><button @click="verdier.splice(verdier.indexOf(verdi), 1)">X</button></td>
       </tr>
     </table>
-  <button @click="verdier.push({tittel: 'tittel', fokus: 'fokus'})">Legg til</button>
+  <button @click="verdier.push({tittel: '', fokus: ''})">Legg til</button>
+    <table>
+    <tr v-for="hendelse in hendelser">
+      <td><input v-model="hendelse.hendelse"></td>
+      <td><input v-model="hendelse.situasjon"></td>
+      <td><input v-model="hendelse.action"></td>
+      <td><button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">X</button></td>
+    </tr>
+    </table>
+    <button @click="verdier.push({tittel: '', fokus: ''})">Legg til</button>
 
 
 
@@ -189,6 +204,7 @@ export default {
 
 <style scoped>
 
+
 table.matrix  {
   table-layout: fixed;
   width : 100%;
@@ -210,12 +226,12 @@ td.red {
 nav {
   background: #2c3e50;
   height: 30px;
-  width: 50%;
+  width: 100%;
   padding: 0 2rem;
   z-index: 1000;
   top: 0;
   position: fixed;
-  left: 25%;
+
 
 }
 table {
@@ -228,16 +244,21 @@ input {
 }
 
 div.preview, div.edit {
-  margin-top: 30px;
-  width: 95%
+  background-color: lightgreen;
+  margin: 30px 0;
+
+  width: 50%;
+  float: left;
+  padding: 2rem;
 }
 
 div.preview {
   background: lightgoldenrodyellow;
-  padding: 5px;
-  resize: both;
-  overflow: auto;
+  #padding: 5px;
+  #resize: both;
+  #overflow: auto;
 }
+
 
 
 textarea {
