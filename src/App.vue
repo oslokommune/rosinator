@@ -11,7 +11,7 @@ export default {
       title: 'Tittel',
       description: 'beskrivelse',
       verdier: [ {tittel: '', fokus: ''}],
-      hendelser : [ {hendelse: '', situasjon: '', action: ''}]
+      hendelser : [ {hendelse: '', situasjon: '', action: '', sannsynlighet: '', konsekvens: ''}]
     }
   },
   methods: {
@@ -32,18 +32,24 @@ export default {
       a.click();
       document.body.removeChild(a);
     },
+    //export json to console
+    exportJsonToConsole() {
+      console.log(JSON.stringify(this, null, 2));
+    },
     // save to local storage
     save() {
-      let {title, description, verdier} = this;
+      let {title, description, verdier, hendelser} = this;
       localStorage.setItem('title', title);
       localStorage.setItem('description', description);
       localStorage.setItem('verdier', JSON.stringify(verdier));
+      localStorage.setItem('hendelser', JSON.stringify(hendelser));
     },
     // load from local storage
     load() {
       this.title = localStorage.getItem('title');
       this.description = localStorage.getItem('description');
       this.verdier = JSON.parse(localStorage.getItem('verdier'));
+      this.hendelser = JSON.parse(localStorage.getItem('hendelser'));
     },
     fullEdit() {
       let edit = document.getElementById('edit');
@@ -74,7 +80,23 @@ export default {
       } else {
         elem.style.display = 'none';
       }
-    }
+    },
+    pushHendelse() {
+      // create if empty
+      if (!this.hendelser) {
+        this.hendelser = [];
+      }
+      // push
+      this.hendelser.push({hendelse: '', situasjon: '', action: '', sannsynlighet: '', konsekvens: ''});
+    },
+    pushVerdi() {
+      // create if empty
+      if (!this.verdier) {
+        this.verdier = [];
+      }
+      // push
+      this.verdier.push({tittel: '', fokus: ''});
+    },
   }
 }
 </script>
@@ -90,6 +112,7 @@ export default {
     <button @click="sideBySide">Side-by-side</button>
     <button @click="exportJson">Save as Json</button>
     <button @click="exportToPDF">Save as pdf</button>
+    <button @click="exportJsonToConsole">Dump Json to console</button>
   </nav>
   <div id="edit" class="edit">
   <h2>Overskrift</h2>
@@ -110,23 +133,40 @@ export default {
         <td><button @click="verdier.splice(verdier.indexOf(verdi), 1)">X</button></td>
       </tr>
     </table>
-  <button @click="verdier.push({tittel: '', fokus: ''})">Legg til</button>
+  <button @click="pushVerdi">Legg til</button>
     <table>
+    <tr>
+      <th>Hendelse</th>
+      <th>Eksisteredne tiltak</th>
+      <th>Planlagte tiltak</th>
+      <th>Sannsynlighet</th>
+      <th>Konsekvens</th>
+    </tr>
     <tr v-for="hendelse in hendelser">
       <td><input v-model="hendelse.hendelse"></td>
       <td><input v-model="hendelse.situasjon"></td>
       <td><input v-model="hendelse.action"></td>
+      <td>
+        <select v-model="hendelse.sannsynlighet">
+        <option value="1">Meget Liten</option>
+        <option value="2">Liten</option>
+        <option value="3">Moderat</option>
+        <option value="4">Stor</option>
+        <option value="5">Svært stor</option>
+      </select>
+      </td>
+      <td>
+        <select v-model="hendelse.konsekvens">
+        <option value="1">Ubetydelig</option>
+        <option value="2">Lav</option>
+        <option value="3">Moderat</option>
+        <option value="4">Alvorlig</option>
+        <option value="5">Svært alvorlig</option>
+      </select></td>
       <td><button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">X</button></td>
     </tr>
     </table>
-    <button @click="verdier.push({tittel: '', fokus: ''})">Legg til</button>
-
-
-
-<!--    Nr.
-    Hendelse
-    Eksisterende tiltak
-    Anbefalte nye tiltak-->
+    <button @click="pushHendelse">Legg til</button>
 
 
 
@@ -183,7 +223,7 @@ export default {
       <td class="red"></td>
     </tr>
     <tr>
-      <td>Liten</td>
+      <td>Meget Liten</td>
       <td class="green"></td>
       <td class="green"></td>
       <td class="yellow"></td>
