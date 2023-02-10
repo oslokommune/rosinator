@@ -1,4 +1,5 @@
 <template>
+  <h3>Sannsynlighet</h3>
   <table class="matrix">
     <tr>
       <td>Svært stor</td>
@@ -249,6 +250,7 @@
       <td>Svært alvorlig</td>
     </tr>
   </table>
+  <h3 style="float:right">Konsekvens</h3>
 </template>
 <script>
 export default {

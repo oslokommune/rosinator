@@ -137,8 +137,8 @@ export default {
     <p id="verdier_hjelp">Verdiene i løsningen man ønsker å beskytte (skrive noe mer om K I T) og hva det betyr</p>
     <table>
       <tr>
-        <th>Tittel</th>
-        <th>Fokus</th>
+        <th>Verdi</th>
+        <th>Vekting</th>
       </tr>
       <tr v-for="verdi in verdier">
         <td><textarea class="medium-text" v-model="verdi.tittel"></textarea></td>
@@ -200,7 +200,7 @@ export default {
     </table>
     <button @click="pushTiltak">Legg til</button>
 
-    <h2>Risiko etter tiltak</h2>
+    <h2>Vurdert risiko etter tiltak</h2>
     <table>
       <tr>
         <th>Nr.</th>
@@ -242,8 +242,8 @@ export default {
   <h2>Verdier i løsningen</h2>
   <table class="data">
     <tr>
-      <th>Tittel</th>
-      <th>Fokus</th>
+      <th>Verdi</th>
+      <th>Vekting</th>
     </tr>
 
     <tr v-for="verdi in verdier" :key="verdi.tittel">
@@ -269,9 +269,11 @@ export default {
 
     </table>
   <h2>Vurdert risiko med eksisterende tiltak</h2>
+  <br />
     <MatrixTable :hendelser="hendelser"  />
   <br />
   <h2>Vurdert risiko med planlagte tiltak</h2>
+  <br />
     <MatrixTableEtter :hendelser="hendelser" />
   </div>
 
