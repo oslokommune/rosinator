@@ -45,17 +45,22 @@ table.matrix td {
   padding: 5px
 }
 td.yellow {
-  background: lemonchiffon;
+  background: var(--color-yellow);
 }
 td.green {
-  background: darkseagreen;
+  background: var(--color-green)
 }
 td.red {
-  background: indianred;
+  background: var(--color-red)
 }
 
 nav {
-  background: #2c3e50;
+  /* background color-blue-dark
+
+   */
+
+
+  background: var(--color-blue-dark);
   height: 30px;
   width: 100%;
   padding: 0 2rem;
@@ -85,7 +90,7 @@ input {
 }
 
 div.preview, div.edit {
-  background-color: lightgrey;
+  background-color: var(--color-blue-light);
   margin: 30px 0;
 
   width: 50%;
@@ -94,7 +99,7 @@ div.preview, div.edit {
 }
 
 div.preview {
-  background: honeydew;
+  background: var(--color-beige-light);
   #padding: 5px;
   #resize: both;
   #overflow: auto;

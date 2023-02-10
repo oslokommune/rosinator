@@ -72,3 +72,57 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+:root {
+  /**
+  * @tokens Colors
+  * @presenter Color
+  */
+  --color-blue: #6fe9ff;
+  --color-blue-light: #b3f5ff;
+  --color-blue-dark: #2a2859;
+  --color-green: #43f8b6;
+  --color-green-light: #c7f6c9;
+  --color-green-dark: #034b45;
+  --color-red: #ff8274;
+  --color-yellow: #f9c66b;
+  --color-beige-light: #f8f0dd;
+  --color-beige-dark: #d0bfae;
+  --color-active: #1f42aa;
+  --color-active-light: #b3f5ff;
+  --color-hover: #1f42aa;
+  --color-hover-light: #b3f5ff;
+  --color-visited: #8d50b1;
+  --color-visited-light: #e0adff;
+  --color-disabled: #4d4d4d;
+  --color-disabled-light: #f9f9f9;
+  --color-info: #2a2859;
+  --color-success: #034b45;
+  --color-warning: #774c01;
+  --color-error: #96281c;
+  --color-blue-dark-5: #f2f9ff;
+  --color-blue-dark-10: #d9e9f2;
+  --color-blue-5: #f1fdff;
+  --color-blue-10: #e5fcff;
+  --color-green-dark-5: #f2fff3;
+  --color-green-dark-10: #d9f2ef;
+  --color-green-10: #e5ffe6;
+  --color-red-5: #fff3f2;
+  --color-red-10: #ffe8e5;
+  --color-yellow-5: #fef9f0;
+  --color-gray-light: #f9f9f9;
+  --color-gray: #f2f2f2;
+  --color-gray-dark: #2c2c2c;
+  --color-transparent: transparent;
+  --color-white: #fff;
+  --color-grayscale-10: #e6e6e6;
+  --color-grayscale-20: #ccc;
+  --color-grayscale-30: #b3b3b3;
+  --color-grayscale-40: #9a9a9a;
+  --color-grayscale-50: #808080;
+  --color-grayscale-60: #666;
+  --color-grayscale-70: #4d4d4d;
+  --color-grayscale-80: #333;
+  --color-grayscale-90: #1a1a1a;
+  --color-black: #000;
+}

@@ -238,6 +238,10 @@ export default {
     </table>
   <h2>Vurdert risiko med eksisterende tiltak</h2>
     <MatrixTable :hendelser="hendelser"/>
+  <br />
+  <h2>Vurdert risiko med planlagte tiltak</h2>
+    <MatrixTable :hendelser="hendelser"/>
   </div>
+
 </template>
 
