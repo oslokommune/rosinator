@@ -9,10 +9,11 @@
     "test:unit": "vitest --environment jsdom --root src/"
   },
   "dependencies": {
+    "@oslokommune/punkt-assets": "^0.21.0",
+    "html2pdf.js": "^0.10.1",
     "pinia": "^2.0.28",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6",
-    "html2pdf.js": "^0.10.1"
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
