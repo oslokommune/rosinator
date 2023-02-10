@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import MatrixTable   from "./components/MatrixTable.vue";
+import MatrixTableEtter   from "./components/MatrixTableEtter.vue";
 import html2pdf from "html2pdf.js";
 </script>
 
@@ -12,7 +13,7 @@ export default {
       title: 'Tittel',
       description: 'beskrivelse',
       verdier: [ {tittel: '', fokus: ''}],
-      hendelser : [ {hendelse: '', situasjon: '', action: '', sannsynlighet: '', konsekvens: ''}],
+      hendelser : [ {hendelse: '', situasjon: '', action: '', sannsynlighet: '', konsekvens: '', sannsynlighet_etter: '', konsekvens_etter: ''}],
       tiltak: [ { beskrivelse: '', frist: ''}]
     }
   },
@@ -149,7 +150,7 @@ export default {
      <h2>Hendelser</h2>
     <button @click="toggle('hendelser_hjelp')">?</button>
     <p id="hendelser_hjelp">Skriv om hendleser ...</p>
-    <table>
+  <table>
     <tr>
       <th>Nr.</th>
       <th>Hendelse</th>
@@ -199,6 +200,36 @@ export default {
     </table>
     <button @click="pushTiltak">Legg til</button>
 
+    <table>
+      <tr>
+        <th>Nr.</th>
+        <th>Hendelse</th>
+        <th>Sannsynlighet etter tiltak</th>
+        <th>Konsekvens etter tiltak</th>
+      </tr>
+      <tr v-for="(hendelse, index) in hendelser">
+        <td>{{ index + 1 }}</td>
+        <td>{{ hendelse.hendelse }}</td>
+        <td>
+          <select v-model="hendelse.sannsynlighet_etter">
+            <option value="1">Meget Liten</option>
+            <option value="2">Liten</option>
+            <option value="3">Moderat</option>
+            <option value="4">Stor</option>
+            <option value="5">Svært stor</option>
+          </select>
+        </td>
+        <td>
+          <select v-model="hendelse.konsekvens_etter">
+            <option value="1">Ubetydelig</option>
+            <option value="2">Lav</option>
+            <option value="3">Moderat</option>
+            <option value="4">Alvorlig</option>
+            <option value="5">Svært alvorlig</option>
+          </select></td>
+      </tr>
+    </table>
+
 
 
   </div>
@@ -237,10 +268,10 @@ export default {
 
     </table>
   <h2>Vurdert risiko med eksisterende tiltak</h2>
-    <MatrixTable :hendelser="hendelser"/>
+    <MatrixTable :hendelser="hendelser"  />
   <br />
   <h2>Vurdert risiko med planlagte tiltak</h2>
-    <MatrixTable :hendelser="hendelser"/>
+    <MatrixTableEtter :hendelser="hendelser" />
   </div>
 
 </template>
