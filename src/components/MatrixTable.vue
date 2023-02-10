@@ -250,13 +250,11 @@
     </tr>
   </table>
 </template>
-
 <script>
 export default {
-  name: "MatrixTable.vue"
+  name: 'MatrixTable',
+  props: {
+    hendelser: {}
+  }
 }
 </script>
-
-<style scoped>
-
-</style>
