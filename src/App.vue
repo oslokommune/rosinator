@@ -10,8 +10,8 @@ import html2pdf from "html2pdf.js";
 export default {
   data() {
     return {
-      title: 'Tittel',
-      description: 'beskrivelse',
+      title: '',
+      description: '',
       verdier: [ {tittel: '', fokus: ''}],
       hendelser : [ {hendelse: '', situasjon: '', action: '', sannsynlighet: '', konsekvens: '', sannsynlighet_etter: '', konsekvens_etter: ''}],
       tiltak: [ { beskrivelse: '', frist: ''}]
@@ -132,8 +132,8 @@ export default {
   <input class="single" v-model="title">
   <h2>Beskrivelse av løsningen</h2>
     <textarea class="long-text" v-model="description"></textarea>
-    <h2>Verdier som skal beskyttes</h2>
-    <button @click="toggle('verdier_hjelp')">?</button>
+    <h2>Verdier som skal beskyttes <button @click="toggle('verdier_hjelp')">?</button></h2>
+
     <p id="verdier_hjelp">Verdiene i løsningen man ønsker å beskytte (skrive noe mer om K I T) og hva det betyr</p>
     <table>
       <tr>
@@ -141,14 +141,14 @@ export default {
         <th>Fokus</th>
       </tr>
       <tr v-for="verdi in verdier">
-        <td><input v-model="verdi.tittel"></td>
-        <td><input v-model="verdi.fokus"></td>
+        <td><textarea class="medium-text" v-model="verdi.tittel"></textarea></td>
+        <td><textarea class="medium-text" v-model="verdi.fokus"></textarea></td>
         <td><button @click="verdier.splice(verdier.indexOf(verdi), 1)">X</button></td>
       </tr>
     </table>
   <button @click="pushVerdi">Legg til</button>
-     <h2>Hendelser</h2>
-    <button @click="toggle('hendelser_hjelp')">?</button>
+     <h2>Hendelser  <button @click="toggle('hendelser_hjelp')">?</button></h2>
+
     <p id="hendelser_hjelp">Skriv om hendleser ...</p>
   <table>
     <tr>
@@ -194,12 +194,13 @@ export default {
       <tr v-for="(tiltak, index) in tiltak">
         <td>{{ index + 1 }}</td>
         <td><textarea class="medium-text" v-model="tiltak.beskrivelse"></textarea></td>
-        <td><input v-model="tiltak.frist"></td>
+        <td><textarea class="medium-text" v-model="tiltak.frist"></textarea></td>
         <td><button @click="tiltak.splice(tiltak.indexOf(tiltak), 1)">X</button></td>
       </tr>
     </table>
     <button @click="pushTiltak">Legg til</button>
 
+    <h2>Risiko etter tiltak</h2>
     <table>
       <tr>
         <th>Nr.</th>
