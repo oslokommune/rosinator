@@ -56,6 +56,16 @@ export default {
       this.hendelser = JSON.parse(localStorage.getItem('hendelser'));
       this.tiltak = JSON.parse(localStorage.getItem('tiltak'));
     },
+    // load from json
+    loadJson() {
+      let json = prompt('Paste JSON here');
+      let data = JSON.parse(json);
+      this.title = data.title;
+      this.description = data.description;
+      this.verdier = data.verdier;
+      this.hendelser = data.hendelser;
+      this.tiltak = data.tiltak;
+    },
     fullEdit() {
       let edit = document.getElementById('edit');
       let preview = document.getElementById('preview');
@@ -118,12 +128,13 @@ export default {
 
   <nav>
 
-    <button @click="save">Save</button>
-    <button @click="load">Load</button>
+    <button @click="save">Sav to local</button>
+    <button @click="load">Load from local</button>
     <button @click="fullEdit">Edit view</button>
     <button @click="fullPreview">Preview view</button>
     <button @click="sideBySide">Side-by-side</button>
     <button @click="exportJson">Save as Json</button>
+    <button @click="loadJson">Load from Json</button>
     <button @click="exportToPDF">Save as pdf</button>
     <button @click="exportJsonToConsole">Dump Json to console</button>
   </nav>
