@@ -4,6 +4,7 @@ import HelloWorld from './components/HelloWorld.vue'
 import MatrixTable   from "./components/MatrixTable.vue";
 import MatrixTableEtter   from "./components/MatrixTableEtter.vue";
 import html2pdf from "html2pdf.js";
+import MatrixTableEdit from "./components/MatrixTableEdit.vue";
 </script>
 
 <script>
@@ -158,6 +159,9 @@ export default {
       </tr>
     </table>
   <button @click="pushVerdi">Legg til</button>
+
+  <MatrixTableEdit :hendelser="hendelser"  />
+
      <h2>Hendelser  <button @click="toggle('hendelser_hjelp')">?</button></h2>
 
     <p id="hendelser_hjelp">Skriv om hendleser ...</p>
