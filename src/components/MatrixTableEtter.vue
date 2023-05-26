@@ -273,8 +273,6 @@ export default {
         // Select the table content
         range.selectNode(table);
 
-        // make a copy of table outside of dom
-
         // set td style border to 1px solid black
         var tds = table.getElementsByTagName('td');
         for (var i = 0; i < tds.length; i++) {
@@ -298,14 +296,11 @@ export default {
         // Execute the "copy" command
         document.execCommand('copy');
 
-        // copy without using deprecated execCommand
-        // https://stackoverflow.com/questions/49236100/alternative-for-execcommandcopy
+        var tds = table.getElementsByTagName('td');
+        for (var i = 0; i < tds.length; i++) {
+          tds[i].style.border = '';
 
-      var tds = table.getElementsByTagName('td');
-      for (var i = 0; i < tds.length; i++) {
-        tds[i].style.border = '';
-
-      }
+        }
 
         // Clear the selection
         selection.removeAllRanges();

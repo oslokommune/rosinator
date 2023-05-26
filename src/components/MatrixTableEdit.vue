@@ -1,16 +1,12 @@
 <template>
-  <h3>Sannsynlighet</h3>
-  <table class="matrix">
+  <table class="matrix_add">
     <tr>
       <td>Svært stor</td>
       <td class="yellow">
         <ul class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
             <li v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '1'">
-                {{ index + 1 }}
+              🎂
             </li>
-          </template>
-
           <button @click="pushHendelse('5','1')">  ADD   </button>
         </ul>
       </td>
@@ -276,22 +272,19 @@
       <td>Svært alvorlig</td>
     </tr>
   </table>
-  <h3 style="float:right">Konsekvens</h3>
 </template>
 <script>
 export default {
   name: 'MatrixTableEdit',
   props: {
     hendelse : {},
+    index : ''
   },
   methods: {
     pushHendelse(sannsynlighet, konsekvens) {
-      console.log("CLICKY!?!");
-      console.log(this.hendelse);
-      console.log(sannsynlighet);
-      console.log(konsekvens);
       this.hendelse.sannsynlighet = sannsynlighet;
       this.hendelse.konsekvens = konsekvens;
+      this.hendelse.update = false;
     },
   }
 }

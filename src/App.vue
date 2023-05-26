@@ -79,37 +79,36 @@ export default {
   <div id="edit" class="edit">
   <h2>Hendelser</h2>
 
-  <table>
-    <tr>
-      <th>Nr.</th>
-      <th>Hendelse</th>
-      <th>Eksisteredne tiltak</th>
-      <th>Planlagte tiltak</th>
-      <th>Sannsynlighet</th>
-      <th>Konsekvens</th>
-    </tr>
-    <tr v-for="(hendelse, index) in hendelser">
-      <td>{{ index + 1 }}</td>
-      <td><textarea class="medium-text" v-model="hendelse.hendelse"></textarea></td>
-      <td><textarea class="medium-text" v-model="hendelse.situasjon"> </textarea></td>
-      <td><textarea class="medium-text" v-model="hendelse.action"></textarea></td>
-      <td><MatrixTableEdit v-if="!hendelse.sannsynlighet && !hendelse.konsekvens" :hendelse="hendelse"></MatrixTableEdit></td>
+    <table v-for="(hendelse, index) in hendelser">
+      <tr>
+        <th style="width: 25px">Nr.</th>
+        <th>Hendelse</th>
+        <th>Eksisteredne tiltak</th>
+        <th>Planlagte tiltak</th>
+      </tr>
+      <tr>
+        <td>{{ index + 1 }}</td>
+        <td><textarea class="medium-text" v-model="hendelse.hendelse"></textarea></td>
+        <td><textarea class="medium-text" v-model="hendelse.situasjon"> </textarea></td>
+        <td><textarea class="medium-text" v-model="hendelse.action"></textarea></td>
+        <td>
+          <button v-if="hendelse.sannsynlighet && hendelse.konsekvens" @click="hendelse.update = true;">Endre risiko</button>
+          <button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">X</button>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><MatrixTableEdit v-if="(!hendelse.sannsynlighet && !hendelse.konsekvens) || hendelse.update" :hendelse="hendelse" :index="index"></MatrixTableEdit>
+        </td>
 
-      <td><button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">X</button></td>
-
-    </tr>
-    <tr>
-    </tr>
+      </tr>
     </table>
 
     <button @click="pushHendelse">Legg til</button>
 
-    # TODO drag and drop into, make it work.
-
-
     <h2>Tiltak</h2>
     <table>
-      <th>Nr.</th>
+      <th style="width: 25px;">Nr.</th>
       <th>Beskrivelse</th>
       <th>Frist</th>
       <tr v-for="(tiltak, index) in tiltak">
@@ -124,7 +123,7 @@ export default {
     <h2>Vurdert risiko etter tiltak</h2>
     <table>
       <tr>
-        <th>Nr.</th>
+        <th style="width: 25px;">Nr.</th>
         <th>Hendelse</th>
         <th>Sannsynlighet etter tiltak</th>
         <th>Konsekvens etter tiltak</th>
@@ -162,7 +161,7 @@ export default {
 <h2>Identifiserte hendelser</h2>
     <table class="data">
       <tr>
-        <th>Nr. </th>
+        <th style="width: 25px;">Nr. </th>
         <th>Hendelse</th>
         <th>Eksisterende tiltak</th>
         <th>Planlagte tiltak</th>

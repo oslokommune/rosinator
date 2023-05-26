@@ -39,14 +39,20 @@ ul.comma-list {
   content: "";
 }
 
-table.matrix  {
+table  {
   table-layout: fixed;
   width : 100%;
 }
+
 table.matrix td {
   overflow: hidden;
-  padding: 5px
+  padding: 5px;
 }
+
+table.matrix_add {
+  min-width: 700px;
+}
+
 td.yellow {
   /*background: var(--color-yellow);*/
   background-color: #f9c66b;
