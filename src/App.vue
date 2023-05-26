@@ -77,10 +77,7 @@ export default {
     <button @click="exportJsonToConsole">Dump Json to console</button>
   </nav>
   <div id="edit" class="edit">
-
-  <MatrixTableEdit :hendelser="hendelser"  />
-
-     <h2>Hendelser  <button @click="toggle('hendelser_hjelp')">?</button></h2>
+  <h2>Hendelser</h2>
 
   <table>
     <tr>
@@ -96,26 +93,15 @@ export default {
       <td><textarea class="medium-text" v-model="hendelse.hendelse"></textarea></td>
       <td><textarea class="medium-text" v-model="hendelse.situasjon"> </textarea></td>
       <td><textarea class="medium-text" v-model="hendelse.action"></textarea></td>
-      <td>
-        <select v-model="hendelse.sannsynlighet">
-        <option value="1">Meget Liten</option>
-        <option value="2">Liten</option>
-        <option value="3">Moderat</option>
-        <option value="4">Stor</option>
-        <option value="5">Svært stor</option>
-      </select>
-      </td>
-      <td>
-        <select v-model="hendelse.konsekvens">
-        <option value="1">Ubetydelig</option>
-        <option value="2">Lav</option>
-        <option value="3">Moderat</option>
-        <option value="4">Alvorlig</option>
-        <option value="5">Svært alvorlig</option>
-      </select></td>
+      <td><MatrixTableEdit v-if="!hendelse.sannsynlighet && !hendelse.konsekvens" :hendelse="hendelse"></MatrixTableEdit></td>
+
       <td><button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">X</button></td>
+
+    </tr>
+    <tr>
     </tr>
     </table>
+
     <button @click="pushHendelse">Legg til</button>
 
     # TODO drag and drop into, make it work.
@@ -176,12 +162,14 @@ export default {
 <h2>Identifiserte hendelser</h2>
     <table class="data">
       <tr>
+        <th>Nr. </th>
         <th>Hendelse</th>
         <th>Eksisterende tiltak</th>
         <th>Planlagte tiltak</th>
       </tr>
 
-      <tr v-for="hendelse in hendelser">
+      <tr v-for="(hendelse, index) in hendelser">
+        <td>{{ index + 1 }}</td>
         <td>{{ hendelse.hendelse }}</td>
         <td>{{ hendelse.situasjon }}</td>
         <td>{{ hendelse.action }}</td>

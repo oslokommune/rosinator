@@ -282,16 +282,16 @@
 export default {
   name: 'MatrixTableEdit',
   props: {
-    hendelser: {}
+    hendelse : {},
   },
   methods: {
     pushHendelse(sannsynlighet, konsekvens) {
-      // create if empty
-      if (!this.hendelser) {
-        this.hendelser = [];
-      }
-      this.hendelser.push({hendelse: '', situasjon: '', action: '', sannsynlighet: sannsynlighet, konsekvens: konsekvens});
-      console.log(this.hendelser)
+      console.log("CLICKY!?!");
+      console.log(this.hendelse);
+      console.log(sannsynlighet);
+      console.log(konsekvens);
+      this.hendelse.sannsynlighet = sannsynlighet;
+      this.hendelse.konsekvens = konsekvens;
     },
   }
 }
