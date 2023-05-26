@@ -1,9 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 import MatrixTable   from "./components/MatrixTable.vue";
 import MatrixTableEtter   from "./components/MatrixTableEtter.vue";
-import html2pdf from "html2pdf.js";
 import MatrixTableEdit from "./components/MatrixTableEdit.vue";
 </script>
 
@@ -11,20 +9,11 @@ import MatrixTableEdit from "./components/MatrixTableEdit.vue";
 export default {
   data() {
     return {
-      title: '',
-      description: '',
-      verdier: [ {tittel: '', fokus: ''}],
-      hendelser : [ {hendelse: '', situasjon: '', action: '', sannsynlighet: '', konsekvens: '', sannsynlighet_etter: '', konsekvens_etter: ''}],
-      tiltak: [ { beskrivelse: '', frist: ''}]
+      hendelser: [],
+      tiltak: []
     }
   },
   methods: {
-    exportToPDF() {
-      html2pdf(document.getElementById("preview"), {
-        margin: 1,
-        filename: "ros.pdf",
-      });
-    },
     //  export json
     exportJson() {
       const a = document.createElement("a");
@@ -42,18 +31,12 @@ export default {
     },
     // save to local storage
     save() {
-      let {title, description, verdier, hendelser, tiltak} = this;
-      localStorage.setItem('title', title);
-      localStorage.setItem('description', description);
-      localStorage.setItem('verdier', JSON.stringify(verdier));
+      let {hendelser, tiltak} = this;
       localStorage.setItem('hendelser', JSON.stringify(hendelser));
       localStorage.setItem('tiltak', JSON.stringify(tiltak));
     },
     // load from local storage
     load() {
-      this.title = localStorage.getItem('title');
-      this.description = localStorage.getItem('description');
-      this.verdier = JSON.parse(localStorage.getItem('verdier'));
       this.hendelser = JSON.parse(localStorage.getItem('hendelser'));
       this.tiltak = JSON.parse(localStorage.getItem('tiltak'));
     },
@@ -61,41 +44,8 @@ export default {
     loadJson() {
       let json = prompt('Paste JSON here');
       let data = JSON.parse(json);
-      this.title = data.title;
-      this.description = data.description;
-      this.verdier = data.verdier;
       this.hendelser = data.hendelser;
       this.tiltak = data.tiltak;
-    },
-    fullEdit() {
-      let edit = document.getElementById('edit');
-      let preview = document.getElementById('preview');
-      edit.style.width = '100%'
-      edit.style.display = 'block';
-      preview.style.display = 'none';
-    },
-    fullPreview() {
-      let edit = document.getElementById('edit');
-      let preview = document.getElementById('preview');
-      preview.style.width = '100%'
-      preview.style.display = 'block';
-      edit.style.display = 'none';
-    },
-    sideBySide() {
-      let edit = document.getElementById('edit');
-      let preview = document.getElementById('preview');
-      edit.style.width = '';
-      preview.style.width = '';
-      preview.style.display = 'block';
-      edit.style.display = 'block';
-    },
-    toggle(id) {
-      let elem = document.getElementById(id);
-      if (elem.style.display === 'none') {
-        elem.style.display = 'block';
-      } else {
-        elem.style.display = 'none';
-      }
     },
     pushHendelse() {
       // create if empty
@@ -104,14 +54,6 @@ export default {
       }
       // push
       this.hendelser.push({hendelse: '', situasjon: '', action: '', sannsynlighet: '', konsekvens: ''});
-    },
-    pushVerdi() {
-      // create if empty
-      if (!this.verdier) {
-        this.verdier = [];
-      }
-      // push
-      this.verdier.push({tittel: '', fokus: ''});
     },
     pushTiltak() {
       // create if empty
@@ -128,43 +70,18 @@ export default {
 <template>
 
   <nav>
-
     <button @click="save">Sav to local</button>
     <button @click="load">Load from local</button>
-    <button @click="fullEdit">Edit view</button>
-    <button @click="fullPreview">Preview view</button>
-    <button @click="sideBySide">Side-by-side</button>
     <button @click="exportJson">Save as Json</button>
     <button @click="loadJson">Load from Json</button>
-    <button @click="exportToPDF">Save as pdf</button>
     <button @click="exportJsonToConsole">Dump Json to console</button>
   </nav>
   <div id="edit" class="edit">
-  <h2>Overskriften til rosen</h2>
-  <input class="single" v-model="title">
-  <h2>Beskrivelse av løsningen</h2>
-    <textarea class="long-text" v-model="description"></textarea>
-    <h2>Verdier som skal beskyttes <button @click="toggle('verdier_hjelp')">?</button></h2>
-
-    <p id="verdier_hjelp">Verdiene i løsningen man ønsker å beskytte (skrive noe mer om K I T) og hva det betyr</p>
-    <table>
-      <tr>
-        <th>Verdi</th>
-        <th>Vekting</th>
-      </tr>
-      <tr v-for="verdi in verdier">
-        <td><textarea class="medium-text" v-model="verdi.tittel"></textarea></td>
-        <td><textarea class="medium-text" v-model="verdi.fokus"></textarea></td>
-        <td><button @click="verdier.splice(verdier.indexOf(verdi), 1)">X</button></td>
-      </tr>
-    </table>
-  <button @click="pushVerdi">Legg til</button>
 
   <MatrixTableEdit :hendelser="hendelser"  />
 
      <h2>Hendelser  <button @click="toggle('hendelser_hjelp')">?</button></h2>
 
-    <p id="hendelser_hjelp">Skriv om hendleser ...</p>
   <table>
     <tr>
       <th>Nr.</th>
@@ -200,6 +117,9 @@ export default {
     </tr>
     </table>
     <button @click="pushHendelse">Legg til</button>
+
+    # TODO drag and drop into, make it work.
+
 
     <h2>Tiltak</h2>
     <table>
@@ -245,28 +165,13 @@ export default {
           </select></td>
       </tr>
     </table>
-
-
-
   </div>
 
   <div id="preview" class="preview">
   <h1>{{ title }}</h1>
   <pre>{{ description }}</pre>
 
-  <h2>Verdier i løsningen</h2>
-  <table class="data">
-    <tr>
-      <th>Verdi</th>
-      <th>Vekting</th>
-    </tr>
 
-    <tr v-for="verdi in verdier" :key="verdi.tittel">
-      <td>{{ verdi.tittel }}</td>
-      <td>{{ verdi.fokus }}</td>
-    </tr>
-
-  </table>
 
 <h2>Identifiserte hendelser</h2>
     <table class="data">
