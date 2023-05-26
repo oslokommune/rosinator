@@ -1,6 +1,6 @@
 <template>
-  <h3>Sannsynlighet</h3>
-  <table class="matrix">
+  <table id="etter" class="matrix">
+    <span><strong>Sannsynlighet</strong></span>
     <tr>
       <td>Svært stor</td>
       <td class="yellow">
@@ -249,11 +249,72 @@
       <td>Alvorlig</td>
       <td>Svært alvorlig</td>
     </tr>
+    <tr class="no-border">
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border" style="text-align:right"><bold>Konsekvens</bold></td>
+    </tr>
   </table>
-  <h3 style="float:right">Konsekvens</h3>
+  <button class="copy-button" @click="copyTable">Kopier tabell</button>
 </template>
 <script>
 export default {
+  methods: {
+    copyTable() {
+        // Get the HTML table element
+        var table = document.getElementById('etter');
+
+        // Create a Range object
+        var range = document.createRange();
+
+        // Select the table content
+        range.selectNode(table);
+
+        // make a copy of table outside of dom
+
+        // set td style border to 1px solid black
+        var tds = table.getElementsByTagName('td');
+        for (var i = 0; i < tds.length; i++) {
+          // unless it has class border-none set border
+          if (tds[i].classList.contains('no-border')) {
+            continue;
+          }
+          tds[i].style.border = '1px solid black';
+        }
+
+
+        // Create a Selection object
+        var selection = window.getSelection();
+
+        // Clear any existing selections
+        selection.removeAllRanges();
+
+        // Add the table range to the selection
+        selection.addRange(range);
+
+        // Execute the "copy" command
+        document.execCommand('copy');
+
+        // copy without using deprecated execCommand
+        // https://stackoverflow.com/questions/49236100/alternative-for-execcommandcopy
+
+      var tds = table.getElementsByTagName('td');
+      for (var i = 0; i < tds.length; i++) {
+        tds[i].style.border = '';
+
+      }
+
+        // Clear the selection
+        selection.removeAllRanges();
+
+        // Alert the user that the table has been copied
+        alert('Table copied to clipboard!');
+
+    }
+  },
   name: 'MatrixTableEtter',
   props: {
     hendelser: {}
