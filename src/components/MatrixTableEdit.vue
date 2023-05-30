@@ -1,30 +1,57 @@
 <template>
   <table class="matrix_add">
     <span><strong>Sannsynlighet</strong></span>
+    <tr v-for="index in 5" :key="index">
+      <td v-if="index===1">Svært Stor</td>
+      <td v-if="index===2">Stor</td>
+      <td v-if="index===3">Moderat</td>
+      <td v-if="index===4">Liten</td>
+      <td v-if="index===5">Meget Liten</td>
+      <td @click="pushHendelse(index, konsekvens)" v-for="konsekvens in 5" :key="konsekvens" :class="getClass(index, konsekvens)">
+
+
+
+        <span v-if="hendelse.sannsynlighet === index && hendelse.konsekvens === konsekvens">
+          (Før)
+        </span>
+        <span v-if="hendelse.sannsynlighet_etter === index && hendelse.konsekvens_etter === konsekvens">
+          (Etter)
+        </span>
+      </td>
+    </tr>
+
+
+
     <tr>
       <td>Svært stor</td>
       <td @click="pushHendelse('5','1')" class="yellow">
         <span v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '1'">
-          {{ index + 1 }}
+          (Før)
+        </span>
+        <span v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '1'">
+          (Etter)
         </span>
       </td>
       <td @click="pushHendelse('5','2')" class="yellow">
-
-            <span v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '2'">
-              {{ index + 1 }}
+          <span v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '2'">
+            (Før)
+            </span>
+        <span v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '2'">
+              (Etter)
             </span>
       </td>
       <td @click="pushHendelse('5','3')" class="red">
-
-            <span v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '3'">
-              {{ index + 1 }}
-            </span>
+        <span v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '3'">(Før)</span>
+        <span v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '3'">(Etter)</span>
       </td>
       <td @click="pushHendelse('5','4')" class="red">
 
             <span v-if="hendelse.sannsynlighet === '5' && hendelse.konsekvens === '4'">
-              {{ index + 1 }}
+              (Før))
             </span>
+          <span v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '4'">
+                (Etter)
+              </span>
       </td>
       <td @click="pushHendelse('5','5')" class="red">
 
@@ -211,6 +238,52 @@ export default {
       }
 
     },
+    getClass(sannsynlighet, konsekvens) {
+      if (sannsynlighet === 1) {
+        if (konsekvens < 3)
+        return 'yellow'
+        else {
+          return 'red'
+        }
+      }
+      if (sannsynlighet === 2) {
+        if (konsekvens === 1)
+        return 'green'
+        else if (konsekvens > 1 && konsekvens < 4) {
+          return 'yellow'
+        }
+        else {
+          return 'red'
+        }
+      }
+      if (sannsynlighet === 3) {
+        if (konsekvens === 1 || konsekvens === 2)
+        return 'green'
+        else if (konsekvens > 2 && konsekvens < 4) {
+          return 'yellow'
+        }
+        else {
+          return 'red'
+        }
+      }
+      if (sannsynlighet === 4) {
+        if (konsekvens === 1 || konsekvens === 2)
+        return 'green'
+        else if (konsekvens === 3 || konsekvens === 4) {
+          return 'yellow'
+        }
+        else {
+          return 'red'
+        }
+      }
+      if (sannsynlighet === 5) {
+        if (konsekvens === 1 || konsekvens === 2)
+        return 'green'
+        else {
+          return 'yellow'
+        }
+      }
+    }
   }
 }
 </script>

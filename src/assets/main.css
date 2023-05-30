@@ -53,6 +53,10 @@ table.matrix_add {
   min-width: 700px;
 }
 
+table.matrix_add td.yellow, .green, .red {
+  text-align: center;
+}
+
 td.yellow {
   /*background: var(--color-yellow);*/
   background-color: #f9c66b;
