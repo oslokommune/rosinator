@@ -62,6 +62,14 @@ export default {
       }
       // push
       this.tiltak.push({beskrivelse: '', frist: ''});
+    },
+
+    toggleUpdate(hendelse) {
+      hendelse.update = !hendelse.update;
+    },
+
+    toggleUpdateEtter(hendelse) {
+      hendelse.update_etter = !hendelse.update_etter;
     }
   }
 }
@@ -92,8 +100,9 @@ export default {
         <td><textarea class="medium-text" v-model="hendelse.situasjon"> </textarea></td>
         <td><textarea class="medium-text" v-model="hendelse.action"></textarea></td>
         <td>
-          <button v-if="hendelse.sannsynlighet && hendelse.konsekvens" @click="hendelse.update = true;">Endre risiko</button>
-          <button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">X</button>
+          <button v-if="hendelse.sannsynlighet && hendelse.konsekvens && !hendelse.update" @click="toggleUpdate(hendelse)">Endre risiko</button>
+          <button v-if="hendelse.sannsynlighet && hendelse.konsekvens && hendelse.update" @click="toggleUpdate(hendelse)">Lukk matrise</button>
+          <button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">Slett hendelse</button>
         </td>
       </tr>
       <tr>
@@ -121,33 +130,22 @@ export default {
     <button @click="pushTiltak">Legg til</button>
 
     <h2>Vurdert risiko etter tiltak</h2>
-    <table>
+    <table v-for="(hendelse, index) in hendelser">
       <tr>
         <th style="width: 25px;">Nr.</th>
         <th>Hendelse</th>
-        <th>Sannsynlighet etter tiltak</th>
-        <th>Konsekvens etter tiltak</th>
       </tr>
-      <tr v-for="(hendelse, index) in hendelser">
+      <tr>
         <td>{{ index + 1 }}</td>
         <td>{{ hendelse.hendelse }}</td>
-        <td>
-          <select v-model="hendelse.sannsynlighet_etter">
-            <option value="1">Meget Liten</option>
-            <option value="2">Liten</option>
-            <option value="3">Moderat</option>
-            <option value="4">Stor</option>
-            <option value="5">Svært stor</option>
-          </select>
+        <button v-if="hendelse.sannsynlighet && hendelse.konsekvens && !hendelse.update_etter" @click="toggleUpdateEtter(hendelse)">Restrisiko</button>
+        <button v-if="hendelse.sannsynlighet && hendelse.konsekvens && hendelse.update_etter" @click="toggleUpdateEtter(hendelse)">Lukk matrise</button>
+      </tr>
+      <tr>
+        <td></td>
+        <td><MatrixTableEdit v-if="hendelse.update_etter" :hendelse="hendelse" :index="index" ></MatrixTableEdit>
         </td>
-        <td>
-          <select v-model="hendelse.konsekvens_etter">
-            <option value="1">Ubetydelig</option>
-            <option value="2">Lav</option>
-            <option value="3">Moderat</option>
-            <option value="4">Alvorlig</option>
-            <option value="5">Svært alvorlig</option>
-          </select></td>
+
       </tr>
     </table>
   </div>
