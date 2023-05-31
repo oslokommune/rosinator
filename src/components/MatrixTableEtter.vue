@@ -6,7 +6,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '1'">
+            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
             </li>
           </template>
@@ -15,7 +15,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '2'">
+            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
             </li>
           </template>
@@ -24,7 +24,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '3'">
+            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
             </li>
           </template>
@@ -33,7 +33,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '4'">
+            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
             </li>
           </template>
@@ -42,7 +42,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '5' && hendelse.konsekvens_etter === '5'">
+            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
             </li>
           </template>
@@ -54,7 +54,7 @@
       <td class="green">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '4' && hendelse.konsekvens_etter === '1'">
+            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
             </li>
           </template>
@@ -63,7 +63,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '4' && hendelse.konsekvens_etter === '2'">
+            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
             </li>
           </template>
@@ -72,7 +72,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '4' && hendelse.konsekvens_etter === '3'">
+            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
             </li>
           </template>
@@ -81,7 +81,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '4' && hendelse.konsekvens_etter === '4'">
+            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
             </li>
           </template>
@@ -90,7 +90,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '4' && hendelse.konsekvens_etter === '5'">
+            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
             </li>
           </template>
@@ -102,7 +102,7 @@
       <td class="green">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '3' && hendelse.konsekvens_etter === '1'">
+            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
             </li>
           </template>
@@ -111,7 +111,7 @@
       <td class="green">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '3' && hendelse.konsekvens_etter === '2'">
+            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
             </li>
           </template>
@@ -120,7 +120,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '3' && hendelse.konsekvens_etter === '3'">
+            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
             </li>
           </template>
@@ -129,7 +129,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '3' && hendelse.konsekvens_etter === '4'">
+            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
             </li>
           </template>
@@ -138,7 +138,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '3' && hendelse.konsekvens_etter === '5'">
+            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
             </li>
           </template>
@@ -150,7 +150,7 @@
       <td class="green">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '2' && hendelse.konsekvens_etter === '1'">
+            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
             </li>
           </template>
@@ -159,7 +159,7 @@
       <td class="green">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '2' && hendelse.konsekvens_etter === '2'">
+            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
             </li>
           </template>
@@ -168,7 +168,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '2' && hendelse.konsekvens_etter === '3'">
+            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
             </li>
           </template>
@@ -177,7 +177,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '2' && hendelse.konsekvens_etter === '4'">
+            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
             </li>
           </template>
@@ -186,7 +186,7 @@
       <td class="red">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '2' && hendelse.konsekvens_etter === '5'">
+            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
             </li>
           </template>
@@ -198,7 +198,7 @@
       <td class="green">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '1' && hendelse.konsekvens_etter === '1'">
+            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
             </li>
           </template>
@@ -207,7 +207,7 @@
       <td class="green">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '1' && hendelse.konsekvens_etter === '2'">
+            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
             </li>
           </template>
@@ -216,7 +216,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '1' && hendelse.konsekvens_etter === '3'">
+            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
             </li>
           </template>
@@ -225,7 +225,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '1' && hendelse.konsekvens_etter === '4'">
+            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
             </li>
           </template>
@@ -234,7 +234,7 @@
       <td class="yellow">
         <ul class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === '1' && hendelse.konsekvens_etter === '5'">
+            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
             </li>
           </template>

@@ -53,7 +53,7 @@ table.matrix_add {
   min-width: 700px;
 }
 
-table.matrix_add td.yellow, .green, .red {
+table td.yellow, .green, .red {
   text-align: center;
 }
 
