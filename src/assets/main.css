@@ -53,6 +53,23 @@ table.matrix_add {
   min-width: 700px;
 }
 
+.matrix_add .green, .matrix_add .yellow, .matrix_add .red{
+  /* embossed button style */
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 1px 2px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.matrix_add td.green:hover, .matrix_add td.yellow:hover, .matrix_add td.red:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  z-index: 10000;
+  border: 2px solid #444;
+}
+
+
+
 table td.yellow, .green, .red {
   text-align: center;
 }
