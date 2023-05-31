@@ -1,24 +1,22 @@
 <template>
   <table class="matrix_add">
     <span><strong>Sannsynlighet</strong></span>
-    <tr v-for="index in sannsynligheter" :key="index">
-      <td v-if="index===1">Svært Stor</td>
-      <td v-if="index===2">Stor</td>
-      <td v-if="index===3">Moderat</td>
-      <td v-if="index===4">Liten</td>
-      <td v-if="index===5">Meget Liten</td>
-      <td @click="pushHendelse(index, konsekvens)" v-for="konsekvens in 5" :key="konsekvens" :class="getClass(index, konsekvens)">
+    <tr v-for="sannsynlighet in sannsynligheter" :key="sannsynlighet">
+      <td v-if="sannsynlighet===1">Svært Stor</td>
+      <td v-if="sannsynlighet===2">Stor</td>
+      <td v-if="sannsynlighet===3">Moderat</td>
+      <td v-if="sannsynlighet===4">Liten</td>
+      <td v-if="sannsynlighet===5">Meget Liten</td>
+      <td @click="pushHendelse(sannsynlighet, konsekvens)" v-for="konsekvens in 5" :key="konsekvens" :class="getClass(sannsynlighet, konsekvens)">
 
-        <span v-if="hendelse.sannsynlighet === index && hendelse.konsekvens === konsekvens">
+        <span v-if="hendelse.sannsynlighet === sannsynlighet && hendelse.konsekvens === konsekvens">
           (Før)
         </span>
-        <span v-if="hendelse.sannsynlighet_etter === index && hendelse.konsekvens_etter === konsekvens">
+        <span v-if="hendelse.sannsynlighet_etter === sannsynlighet && hendelse.konsekvens_etter === konsekvens">
           (Etter)
         </span>
       </td>
     </tr>
-
-
 
 
     <tr>
@@ -75,6 +73,7 @@ export default {
       }
 
     },
+
     getClass(sannsynlighet, konsekvens) {
       if (sannsynlighet === 5 ) {
         if (konsekvens < 3) {
