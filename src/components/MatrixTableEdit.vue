@@ -9,10 +9,10 @@
       <td v-if="sannsynlighet===5">Meget Liten</td>
       <td @click="pushHendelse(sannsynlighet, konsekvens)" v-for="konsekvens in 5" :key="konsekvens" :class="getClass(sannsynlighet, konsekvens)">
 
-        <span v-if="hendelse.sannsynlighet === sannsynlighet && hendelse.konsekvens === konsekvens">
+        <span v-bind:class="{ 'bold' : hendelse.update}" v-if="hendelse.sannsynlighet === sannsynlighet && hendelse.konsekvens === konsekvens">
           (Før)
         </span>
-        <span v-if="hendelse.sannsynlighet_etter === sannsynlighet && hendelse.konsekvens_etter === konsekvens">
+        <span v-bind:class="{ 'bold' : hendelse.update_etter}" v-if="hendelse.sannsynlighet_etter === sannsynlighet && hendelse.konsekvens_etter === konsekvens">
           (Etter)
         </span>
       </td>
@@ -20,7 +20,7 @@
 
 
     <tr>
-      <td></td>
+      <td><button v-if="hendelse.sannsynlighet && hendelse.konsekvens" @click="closeEditMatrix">Lukk matrise</button></td>
       <td>Ubetydelig</td>
       <td>Lav</td>
       <td>Moderat</td>
@@ -60,18 +60,23 @@ export default {
       console.log(this.hendelse.konsekvens)
       console.log(this.hendelse.sannsynlighet)
       console.log(this.hendelse.update_etter)
-      if(this.hendelse.update_etter === true) {
+      if(this.hendelse.update_etter) {
         console.log('UPDATING ETTER')
         this.hendelse.sannsynlighet_etter = sannsynlighet;
         this.hendelse.konsekvens_etter = konsekvens;
-        this.hendelse.update_etter = false;
+       // this.hendelse.update_etter = false;
       } else {
         console.log("UPDATING NORMAL")
         this.hendelse.sannsynlighet = sannsynlighet;
         this.hendelse.konsekvens = konsekvens;
-        this.hendelse.update = false;
+        //this.hendelse.update = false;
       }
 
+    },
+
+    closeEditMatrix() {
+      this.hendelse.update = false;
+      this.hendelse.update_etter = false;
     },
 
     getClass(sannsynlighet, konsekvens) {

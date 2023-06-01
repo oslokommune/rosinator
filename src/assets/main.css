@@ -11,6 +11,8 @@
 
 @font-face {
   font-family: 'OsloSans';
+  /* include OsloSans-Bold.woff and OsloSans-Regular.woff*/
+
   src: url("./fonts/OsloSans-Regular.woff");
 }
 
@@ -26,6 +28,11 @@ ul.comma-list {
   list-style: none;
 }
 
+strong, bold, .bold, .strong {
+  font-weight: bold;
+}
+
+
 .comma-list li {
   display: inline;
   font-weight: bold;
@@ -40,17 +47,16 @@ ul.comma-list {
 }
 
 table  {
-  table-layout: fixed;
-  width : 100%;
+  #table-layout: fixed;
+  #width : 100%;
 }
 
-table.matrix td {
+
+
+table.matrix td, table.matrix_add td {
   overflow: hidden;
   padding: 5px;
-}
-
-table.matrix_add {
-  min-width: 700px;
+  width: calc(100% / 6);
 }
 
 .matrix_add .green, .matrix_add .yellow, .matrix_add .red{
@@ -66,6 +72,12 @@ table.matrix_add {
   transform: scale(1.1);
   z-index: 10000;
   border: 2px solid #444;
+}
+
+/* press animation on click  for matrix_add td */
+.matrix_add td.green:active, .matrix_add td.yellow:active, .matrix_add td.red:active {
+  transform: scale(0.9);
+  transition: transform 0.5s;
 }
 
 
@@ -156,4 +168,16 @@ select {
 
 pre {
   white-space: pre-wrap;
+}
+
+.hendelse {
+  /* fancy embossed border */
+  /* that is not fancy */
+    border-radius: 5px;
+  border: 1px solid var(--color-border);
+
+    box-shadow: 0 1px 0 rgba(60,60,60,0.5) inset, 0 1px 2px rgba(0,0,0,0.3);
+ /*thank you */
+    padding: 15px;
+    margin: 10px;
 }
