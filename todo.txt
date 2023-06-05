@@ -1,0 +1,26 @@
+Veldig kult. Dette likte jeg svært godt :smile:
+Ser frem til å se fortsettelsen og mulighetene med lagring og opplasting. Noen ting jeg tenker ville vært nyttig å få med foreløpig er:
+
+
+* for hver hendelse, kan du legge til et nytt tiltak av gangen, som automagisk kommer opp i tiltakslisten lenger ned. Gjerne med en avkrysning for om det er sannsynlighets- og/eller konsekvensreduserende.
+
+* I tiltakslisten skal du kunne skrive inn frist og ansvarlig for tiltaket også. Et nedtrekksmeny med status, ville også gjort det enklere å oppdatere/få oversikt.
+* Muligheter for å laste opp systemskisse
+
+
+***Automagisk visning av restrisiko øverst i dokumentet (?)
+
+
+
+Jeg fjernet tekstfarge i body-komponenten, så funket det supert.
+
+
+TODO - next up:
+
+Koble sammen hendelse og tiltak : Skriv inn hva som reduseres - og hvordan.
+
+"""
+Hei Ivar!
+Ja, jeg mente at tiltakene kobles direkte til hendelsene de gjelder for. Enten med en ID, siden et tiltak kan være knyttet til flere hendelser, eller på en annen måte :smile: Så det blir enkelt å følge opp også.
+Restrisiko er det høyeste nivået av risiko etter implementerte tiltak, den Tine må ta stilling til om hu er villig til å akseptere. For eksempel har du kanskje tre hendelser med lav, middels og høy risiko. Etter nye tiltak, vil risikonivåene endre seg til lav, lav og middels. Da vil middels være restrisiko.
+"""

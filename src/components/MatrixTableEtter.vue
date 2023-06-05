@@ -4,241 +4,241 @@
     <tr>
       <td>Svært stor</td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 1">
+            <span v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 2">
+            <span v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 3">
+            <span v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 4">
+            <span v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 5">
+            <span v-if="hendelse.sannsynlighet_etter === 5 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
     </tr>
     <tr>
       <td>Stor</td>
       <td class="green">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 1">
+            <span v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 2">
+            <span v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 3">
+            <span v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 4">
+            <span v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 5">
+            <span v-if="hendelse.sannsynlighet_etter === 4 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
     </tr>
     <tr>
       <td>Moderat</td>
       <td class="green">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 1">
+            <span v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="green">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 2">
+            <span v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 3">
+            <span v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 4">
+            <span v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 5">
+            <span v-if="hendelse.sannsynlighet_etter === 3 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
     </tr>
     <tr>
       <td>Liten</td>
       <td class="green">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 1">
+            <span v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="green">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 2">
+            <span v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 3">
+            <span v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 4">
+            <span v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="red">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 5">
+            <span v-if="hendelse.sannsynlighet_etter === 2 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
     </tr>
     <tr>
       <td>Meget Liten</td>
       <td class="green">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 1">
+            <span v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 1">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="green">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 2">
+            <span v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 2">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 3">
+            <span v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 3">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 4">
+            <span v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 4">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
       <td class="yellow">
-        <ul class="comma-list">
+        <div class="comma-list">
           <template v-for="(hendelse, index) in hendelser">
-            <li v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 5">
+            <span v-if="hendelse.sannsynlighet_etter === 1 && hendelse.konsekvens_etter === 5">
               {{ index + 1 }}
-            </li>
+            </span>
           </template>
-        </ul>
+        </div>
       </td>
     </tr>
     <tr>
