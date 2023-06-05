@@ -76,6 +76,30 @@ export default {
       if (hendelse.update_etter) {
         hendelse.update = false;
       }
+    },
+    toggleTiltaksliste(hendelse) {
+      hendelse.update_tiltak = !hendelse.update_tiltak;
+    },
+    toggleTiltakForHendelse(hendelse, tiltaket) {
+      // add the index of tiltaket to hendelse.tiltak
+      if (!hendelse.tiltak) {
+        hendelse.tiltak = [];
+      }
+      if (hendelse.tiltak.includes(tiltaket)) {
+        hendelse.tiltak.splice(hendelse.tiltak.indexOf(tiltaket), 1);
+      } else {
+        hendelse.tiltak.push(tiltaket);
+      }
+      console.log(hendelse.tiltak[0]);
+    },
+    slettTiltak(tiltaket, tiltak) {
+      // iterate hendelser, and delete tiltaket from all lists that include it in hendlerser.tiltak
+      for (let hendelse of this.hendelser) {
+        if (hendelse.tiltak.includes(tiltaket)) {
+          hendelse.tiltak.splice(hendelse.tiltak.indexOf(tiltaket), 1);
+        }
+      }
+      tiltak.splice(tiltak.indexOf(tiltaket), 1)
     }
   }
 }
@@ -84,11 +108,11 @@ export default {
 <template>
 
   <nav>
-    <button @click="save">Sav to local</button>
-    <button @click="load">Load from local</button>
-    <button @click="exportJson">Save as Json</button>
-    <button @click="loadJson">Load from Json</button>
-    <button @click="exportJsonToConsole">Dump Json to console</button>
+    <button @click="save">Lagre</button>
+    <button @click="load">Last inn</button>
+    <button @click="exportJson">Lagre Json</button>
+    <button @click="loadJson">Last inn fra Json</button>
+    <button @click="exportJsonToConsole">Json til console</button>
   </nav>
   <div id="edit" class="edit">
   <h2>Hendelser</h2>
@@ -106,31 +130,46 @@ export default {
         </button>
         <!-- TODO add tiltak here -->
         <button @click="hendelser.splice(hendelser.indexOf(hendelse), 1)">Slett hendelse</button>
+        <button v-if="!hendelse.update_tiltak && tiltak.length > 0" @click="toggleTiltaksliste(hendelse)">Velg tiltak</button>
+        <button v-if="hendelse.update_tiltak" @click="toggleTiltaksliste(hendelse)">Lukk tiltaksliste</button>
       </div>
 
+      <div v-if="hendelse.update_tiltak">
+        <!-- List all tiltak here -->
+        <div class="tiltaksVelger"  v-for="(tiltaket) in tiltak">
+
+          <p @click="toggleTiltakForHendelse(hendelse, tiltaket)">
+            <input  type="checkbox" :checked="hendelse.tiltak.includes(tiltaket)" />
+            {{ tiltaket.beskrivelse }}
+
+          </p>
+
+        <!-- TODO here we just show all the tiltaks in a button  list, like the matrix,and we can check and stuff -->
+        </div>
+      </div>
       <MatrixTableEdit
           v-if="(!hendelse.sannsynlighet && !hendelse.konsekvens) || hendelse.update || hendelse.update_etter"
           :hendelse="hendelse" :index="index"></MatrixTableEdit>
     </div>
 
-    <button @click="pushHendelse">Legg til</button>
+    <button @click="pushHendelse">Ny hendelse</button>
 
 <!--    TODO  ok  - now the focus is to connect -->
 
-    <h2>Tiltak</h2>
+  <h2>Tiltak</h2>
     <table>
       <th style="width: 25px;">Nr.</th>
       <th>Beskrivelse</th>
       <th>Frist</th>
-      <tr v-for="(tiltak, index) in tiltak">
+      <tr v-for="(tiltaket, index) in tiltak">
         <td>{{ index + 1 }}</td>
-        <td><textarea class="medium-text" v-model="tiltak.beskrivelse"></textarea></td>
-        <td><textarea class="medium-text" v-model="tiltak.frist"></textarea></td>
-        <td><button @click="tiltak.splice(tiltak.indexOf(tiltak), 1)">X</button></td>
+        <td><textarea class="medium-text" v-model="tiltaket.beskrivelse"></textarea></td>
+        <td><textarea class="medium-text" v-model="tiltaket.frist"></textarea></td>
+        <td><button @click="slettTiltak(tiltaket, tiltak)">Slett tiltak</button></td>
       </tr>
     </table>
 <!--    TODO Here we need to select which hendlese - so, we need a button on the actual one ... so that uh, we can add on. Needs dropdown to select existing and / or make new -->
-    <button @click="pushTiltak">Legg til</button>
+  <button @click="pushTiltak">Nytt tiltak</button>
   </div>
 
   <div id="preview" class="preview">
@@ -140,19 +179,28 @@ export default {
     <tr>
       <th style="width: 25px;">Nr. </th>
       <th>Hendelse</th>
-      <th>S før</th>
-      <th>K før</th>
-      <th>S etter</th>
-      <th>K etter</th>
+      <th> Tiltak </th>
+      <th> Redusert risiko </th>
     </tr>
 
     <tr v-for="(hendelse, index) in hendelser">
       <td>{{ index + 1 }}</td>
+      <!-- iterate hendlese.tiltak here -->
+
       <td>{{ hendelse.hendelse }}</td>
-      <td>{{ hendelse.sannsynlighet }}</td>
-      <td>{{ hendelse.konsekvens }}</td>
-      <td>{{ hendelse.sannsynlighet_etter }}</td>
-      <td>{{ hendelse.konsekvens_etter }}</td>
+      <td>
+      <div v-if="hendelse.tiltak.length === 1">
+        {{ hendelse.tiltak[0].beskrivelse }}
+      </div>
+
+          <ul v-if="hendelse.tiltak.length > 1" v-for="tiltaket in hendelse.tiltak">
+            <li>{{ tiltaket.beskrivelse }}</li>
+          </ul>
+        </td>
+      <td>
+        <span v-if="hendelse.konsekvens_etter < hendelse.konsekvens">K </span>
+        <span v-if="hendelse.sannsynlighet_etter < hendelse.sannsynlighet">S </span>
+      </td>
     </tr>
 
   </table>

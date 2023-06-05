@@ -1,8 +1,5 @@
 @import './base.css';
 
-
-
-
 @media (min-width: 1920px) {
   div.edit, div.preview {
     padding: 0 5% !important;
@@ -98,8 +95,8 @@ td.red {
 }
 
 nav {
-  background: var(--color-blue-dark);
-  height: 30px;
+  background: var(--color-beige-dark);
+  height: 40px;
   width: 100%;
   padding: 0 2rem;
   z-index: 1000;
@@ -126,8 +123,9 @@ table.data td, table.data th {
   padding: 5px;
 }
 
-input {
-  width: 100%;
+.tiltaksVelger {
+  margin: 10px;
+  padding: 10px;
 }
 
 div.preview, div.edit {
@@ -180,4 +178,15 @@ pre {
  /*thank you */
     padding: 15px;
     margin: 10px;
+}
+
+/* copilot - make the buttons look sexy! */
+button {
+  background: var(--color-blue-dark);
+  color: var(--color-beige-light);
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
 }
