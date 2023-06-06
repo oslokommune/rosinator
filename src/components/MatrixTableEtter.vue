@@ -35,6 +35,7 @@
       <td class="no-border" style="text-align:right"><bold>Konsekvens</bold></td>
     </tr>
   </table>
+  <button class="copy-button" @click="copyTable">Kopier tabell</button>
 </template>
 
 

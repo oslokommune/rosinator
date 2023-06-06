@@ -13,7 +13,7 @@
             <template v-if="hendelse.sannsynlighet === sannsynlighet && hendelse.konsekvens === konsekvens">
               <span>{{ index + 1 }}</span>
               <!-- TODO, this is broken, and the logics gets kind of hard, we need to count if this is the last one for this given KS -->
-              <span v-if="index < hendelser.length - 1">, </span>
+              <span v-if="!isLast(index, sannsynlighet, konsekvens)">, </span>
             </template>
             </template>
           </div>
@@ -51,6 +51,24 @@ export default {
     }
   },
   methods: {
+    isLast(index, sannsynlighet, konsekvens) {
+      if (this.hendelser && this.hendelser.length > 0) {
+        var currentHendelse = this.hendelser[index]
+        // put all hendelser with same sannsynlighet and konsekvens in a list
+        var list = [];
+        for (var i = 0; i < this.hendelser.length; i++) {
+          if (this.hendelser[i].sannsynlighet === sannsynlighet && this.hendelser[i].konsekvens === konsekvens) {
+            list.push(this.hendelser[i]);
+          }
+        }
+
+        // if last element in list is currentHenelse, then return true
+        if (list[list.length - 1] === currentHendelse) {
+          return true;
+        }
+      }
+      return false;
+    },
     copyTable() {
       // Get the HTML table element
       var table = document.getElementById('risk-matrix');
