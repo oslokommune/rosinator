@@ -1,6 +1,54 @@
 <template>
   <table id="etter" class="matrix">
     <span><strong>Sannsynlighet</strong></span>
+    <tr v-for="sannsynlighet in sannsynligheter" :key="sannsynlighet">
+      <td v-if="sannsynlighet===1">Svært Stor</td>
+      <td v-if="sannsynlighet===2">Stor</td>
+      <td v-if="sannsynlighet===3">Moderat</td>
+      <td v-if="sannsynlighet===4">Liten</td>
+      <td v-if="sannsynlighet===5">Meget Liten</td>
+      <td v-for="konsekvens in 5" :key="konsekvens" :class="getClass(sannsynlighet, konsekvens)">
+        <div class="comma-list">
+          <template v-for="(hendelse, index) in hendelser">
+            <span v-if="hendelse.sannsynlighet_etter === sannsynlighet && hendelse.konsekvens_etter === konsekvens">
+              {{ index + 1 }}
+            </span>
+          </template>
+        </div>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>Ubetydelig</td>
+      <td>Lav</td>
+      <td>Moderat</td>
+      <td>Alvorlig</td>
+      <td>Svært alvorlig</td>
+    </tr>
+    <tr class="no-border">
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border"></td>
+      <td class="no-border" style="text-align:right"><bold>Konsekvens</bold></td>
+    </tr>
+  </table>
+</template>
+
+
+
+
+
+
+
+
+
+
+<!--
+  <table id="etter" class="matrix">
+    <span><strong>Sannsynlighet</strong></span>
     <tr>
       <td>Svært stor</td>
       <td class="yellow">
@@ -259,7 +307,9 @@
     </tr>
   </table>
   <button class="copy-button" @click="copyTable">Kopier tabell</button>
-</template>
+</template>-->
+
+
 <script>
 export default {
   methods: {
@@ -308,8 +358,71 @@ export default {
         // Alert the user that the table has been copied
         alert('Table copied to clipboard!');
 
+    },
+    getClass(sannsynlighet, konsekvens) {
+      if (sannsynlighet === 5 ) {
+        if (konsekvens < 3) {
+          return "yellow"
+        }
+        return "red";
+      }
+
+      if (sannsynlighet === 4) {
+        if (konsekvens === 1) {
+          return "green"
+        }
+        else if (konsekvens < 4) {
+          return "yellow"
+        }
+        else {
+          return "red";
+        }
+      }
+
+      if (sannsynlighet === 3) {
+        if (konsekvens < 3) {
+          return "green"
+        }
+        else if(konsekvens === 3) {
+          return "yellow"
+        }
+        else {
+          return "red";
+        }
+      }
+
+      if (sannsynlighet === 2) {
+        if (konsekvens < 3) {
+          return "green"
+        }
+        else if(konsekvens < 5) {
+          return "yellow"
+        }
+        else {
+          return "red"
+        }
+      }
+
+      if (sannsynlighet === 1) {
+        if (konsekvens < 3) {
+          return "green"
+        }
+        else {
+          return "yellow"
+        }
+      }
+
+      return "green"
+    }
+
+  },
+  computed: {
+    sannsynligheter() {
+      return [5, 4, 3, 2, 1];
     }
   },
+
+
   name: 'MatrixTableEtter',
   props: {
     hendelser: {}

@@ -1,271 +1,54 @@
 <template>
-  <table id="risk-matrix" class="matrix">
-    <span><strong>Sannsynlighet</strong></span>
-    <tr>
-      <td>Svært stor</td>
-      <td class="yellow">
-        <div>
-          <template v-for="(hendelse, index) in hendelser">
-            <template v-if="hendelse.sannsynlighet === 5 && hendelse.konsekvens === 1">
+    <table id="risk-matrix" class="matrix">
+      <span><strong>Sannsynlighet</strong></span>
+      <tr v-for="sannsynlighet in sannsynligheter" :key="sannsynlighet">
+        <td v-if="sannsynlighet===1">Svært Stor</td>
+        <td v-if="sannsynlighet===2">Stor</td>
+        <td v-if="sannsynlighet===3">Moderat</td>
+        <td v-if="sannsynlighet===4">Liten</td>
+        <td v-if="sannsynlighet===5">Meget Liten</td>
+        <td v-for="konsekvens in 5" :key="konsekvens" :class="getClass(sannsynlighet, konsekvens)">
+          <div>
+            <template v-for="(hendelse, index) in hendelser">
+            <template v-if="hendelse.sannsynlighet === sannsynlighet && hendelse.konsekvens === konsekvens">
               <span>{{ index + 1 }}</span>
+              <!-- TODO, this is broken, and the logics gets kind of hard, we need to count if this is the last one for this given KS -->
               <span v-if="index < hendelser.length - 1">, </span>
             </template>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 5 && hendelse.konsekvens === 2">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 5 && hendelse.konsekvens === 3">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 5 && hendelse.konsekvens === 4">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 5 && hendelse.konsekvens === 5">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>Stor</td>
-      <td class="green">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 4 && hendelse.konsekvens === 1">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 4 && hendelse.konsekvens === 2">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 4 && hendelse.konsekvens === 3">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 4 && hendelse.konsekvens === 4">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 4 && hendelse.konsekvens === 5">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>Moderat</td>
-      <td class="green">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 3 && hendelse.konsekvens === 1">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="green">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 3 && hendelse.konsekvens === 2">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 3 && hendelse.konsekvens === 3">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 3 && hendelse.konsekvens === 4">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 3 && hendelse.konsekvens === 5">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>Liten</td>
-      <td class="green">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 2 && hendelse.konsekvens === 1">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="green">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 2 && hendelse.konsekvens === 2">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 2 && hendelse.konsekvens === 3">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 2 && hendelse.konsekvens === 4">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="red">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 2 && hendelse.konsekvens === 5">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>Meget Liten</td>
-      <td class="green">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 1 && hendelse.konsekvens === 1">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="green">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 1 && hendelse.konsekvens === 2">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 1 && hendelse.konsekvens === 3">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 1 && hendelse.konsekvens === 4">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-      <td class="yellow">
-        <div class="comma-list">
-          <template v-for="(hendelse, index) in hendelser">
-            <span v-if="hendelse.sannsynlighet === 1 && hendelse.konsekvens === 5">
-              {{ index + 1 }}
-            </span>
-          </template>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>Ubetydelig</td>
-      <td>Lav</td>
-      <td>Moderat</td>
-      <td>Alvorlig</td>
-      <td>Svært alvorlig</td>
-    </tr>
-    <tr class="no-border">
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border" style="text-align:right"><bold>Konsekvens</bold></td>
-    </tr>
-  </table>
-  <button class="copy-button" @click="copyTable">Kopier tabell</button>
+            </template>
+          </div>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>Ubetydelig</td>
+        <td>Lav</td>
+        <td>Moderat</td>
+        <td>Alvorlig</td>
+        <td>Svært alvorlig</td>
+      </tr>
+      <tr class="no-border">
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border" style="text-align:right"><bold>Konsekvens</bold></td>
+      </tr>
+    </table>
+    <button class="copy-button" @click="copyTable">Kopier tabell</button>
 </template>
 <script>
 export default {
   name: 'MatrixTable',
   props: {
     hendelser: {}
+  },
+  computed: {
+    sannsynligheter() {
+      return [5, 4, 3, 2, 1];
+    }
   },
   methods: {
     copyTable() {
@@ -313,6 +96,55 @@ export default {
       // Alert the user that the table has been copied
       alert('Table copied to clipboard!');
 
+    },
+
+    getClass(sannsynlighet, konsekvens) {
+      if (sannsynlighet === 5) {
+        if (konsekvens < 3) {
+          return "yellow"
+        }
+        return "red";
+      }
+
+      if (sannsynlighet === 4) {
+        if (konsekvens === 1) {
+          return "green"
+        } else if (konsekvens < 4) {
+          return "yellow"
+        } else {
+          return "red";
+        }
+      }
+
+      if (sannsynlighet === 3) {
+        if (konsekvens < 3) {
+          return "green"
+        } else if (konsekvens === 3) {
+          return "yellow"
+        } else {
+          return "red";
+        }
+      }
+
+      if (sannsynlighet === 2) {
+        if (konsekvens < 3) {
+          return "green"
+        } else if (konsekvens < 5) {
+          return "yellow"
+        } else {
+          return "red"
+        }
+      }
+
+      if (sannsynlighet === 1) {
+        if (konsekvens < 3) {
+          return "green"
+        } else {
+          return "yellow"
+        }
+      }
+
+      return "green"
     }
   }
 }
