@@ -6,12 +6,16 @@ import MatrixTableEdit from "./components/MatrixTableEdit.vue";
 </script>
 
 <script>
+import common from './components/common.js';
 export default {
   data() {
     return {
       hendelser: [],
       tiltak: []
     }
+  },
+  created() {
+    this.copyTable = common.copyTable;
   },
   methods: {
     //  export json
@@ -61,7 +65,7 @@ export default {
         this.tiltak = [];
       }
       // push
-      this.tiltak.push({beskrivelse: '', frist: ''});
+      this.tiltak.push({beskrivelse: '', frist: '', ansvarlig: '' });
     },
 
     toggleUpdate(hendelse) {
@@ -158,26 +162,27 @@ export default {
 
   <h2>Tiltak</h2>
     <table>
-      <th style="width: 25px;">Nr.</th>
-      <th>Beskrivelse</th>
+      <th style="width: 40px;">Nr.</th>
+      <th style="width:50%">Beskrivelse</th>
       <th>Frist</th>
+      <th>Ansvarlig</th>
       <tr v-for="(tiltaket, index) in tiltak">
         <td>{{ index + 1 }}</td>
-        <td><textarea class="medium-text" v-model="tiltaket.beskrivelse"></textarea></td>
-        <td><textarea class="medium-text" v-model="tiltaket.frist"></textarea></td>
+        <td><textarea class="small-text" v-model="tiltaket.beskrivelse"></textarea></td>
+        <td><textarea class="small-text" v-model="tiltaket.frist"></textarea></td>
+        <td><textarea class="small-text" v-model="tiltaket.ansvarlig"></textarea></td>
         <td><button @click="slettTiltak(tiltaket, tiltak)">Slett tiltak</button></td>
       </tr>
     </table>
-<!--    TODO Here we need to select which hendlese - so, we need a button on the actual one ... so that uh, we can add on. Needs dropdown to select existing and / or make new -->
   <button @click="pushTiltak">Nytt tiltak</button>
   </div>
 
   <div id="preview" class="preview">
 
 <h2>Identifiserte hendelser</h2>
-  <table class="data">
+  <table id="hendelseList" class="data">
     <tr>
-      <th style="width: 25px;">Nr. </th>
+      <th style="width: 40px;">Nr. </th>
       <th>Hendelse</th>
       <th> Tiltak </th>
       <th> Redusert risiko </th>
@@ -204,22 +209,27 @@ export default {
     </tr>
 
   </table>
+    <button class="copy-button" @click="copyTable('hendelseList')">Kopier tabell</button>
 
-<!--<h2>Planlagte tiltak</h2>
-  <table class="data">
+
+ <h2>Planlagte tiltak</h2>
+  <table id="tiltakList" class="data">
     <tr>
-      <th style="width: 25px;">Nr. </th>
-      <th>Hendelse nr</th>
-      <th>Planlagte tiltak</th>
+      <th style="width: 40px;">Nr. </th>
+      <th>Tiltak</th>
+      <th>Frist</th>
+      <th>Ansvarlig</th>
     </tr>
 
-    <tr v-for="(hendelse, index) in hendelser">
+    <tr v-for="(tiltaket, index) in tiltak">
       <td>{{ index + 1 }}</td>
-      <td>{{ hendelse.hendelse }}</td>
-      <td>Liste tiltak? / vise K/S før etter - eller farger? hmm Snakk med Rune, men forsøk på sammendarg</td>
+      <td>{{ tiltaket.beskrivelse }}</td>
+      <td>{{ tiltaket.frist }}</td>
+      <td>{{ tiltaket.ansvarlig }}</td>
     </tr>
 
-  </table>-->
+  </table>
+  <button class="copy-button" @click="copyTable('tiltakList')">Kopier tabell</button>
 
 
 

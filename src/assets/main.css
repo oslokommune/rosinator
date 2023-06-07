@@ -157,6 +157,14 @@ textarea.medium-text {
   margin: 7px;
 }
 
+textarea.small-text {
+  width: 100%;
+  height: 60px;
+  resize: none;
+  margin: 7px;
+}
+
+
 select {
   height: 30px;
   margin-left: 10px;
