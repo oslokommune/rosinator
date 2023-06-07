@@ -10,7 +10,7 @@ import common from './components/common.js';
 export default {
   data() {
     return {
-      hendelser: [],
+      hendelser: [{hendelse: '', sannsynlighet: '', konsekvens: '', tiltak: []}],
       tiltak: []
     }
   },
@@ -21,7 +21,7 @@ export default {
     //  export json
     exportJson() {
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([JSON.stringify(this, null, 2)], {
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(this.$data, null, 2)], {
         type: "application/json"
       }));
       a.setAttribute("download", "data.json");
@@ -31,7 +31,7 @@ export default {
     },
     //export json to console
     exportJsonToConsole() {
-      console.log(JSON.stringify(this, null, 2));
+      console.log(JSON.stringify(this.$data, null, 2));
     },
     // save to local storage
     save() {
