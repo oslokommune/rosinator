@@ -95,7 +95,7 @@ td.red {
 
 nav {
   background: var(--color-beige-dark);
-  height: 50px;
+  height: 45px;
   width: 100%;
   padding: 0 2rem;
   z-index: 1000;
@@ -192,7 +192,7 @@ button {
   color: var(--color-beige-light);
   border: 1px solid var(--color-border);
   padding: 7px;
-  margin: 7px;
+  margin: 10px;
   cursor: pointer;
 }
 
