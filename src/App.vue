@@ -162,8 +162,8 @@ export default {
 
   <h2>Tiltak</h2>
     <table>
-      <th style="width: 40px;">Nr.</th>
-      <th style="width:50%">Beskrivelse</th>
+      <th class="col-small">Nr.</th>
+      <th class="col-medium">Beskrivelse</th>
       <th>Frist</th>
       <th>Ansvarlig</th>
       <tr v-for="(tiltaket, index) in tiltak">
@@ -182,7 +182,7 @@ export default {
 <h2>Identifiserte hendelser</h2>
   <table id="hendelseList" class="data">
     <tr>
-      <th style="width: 40px;">Nr. </th>
+      <th class="col-small">Nr. </th>
       <th>Hendelse</th>
       <th> Tiltak </th>
       <th> Redusert risiko </th>
@@ -215,7 +215,7 @@ export default {
  <h2>Planlagte tiltak</h2>
   <table id="tiltakList" class="data">
     <tr>
-      <th style="width: 40px;">Nr. </th>
+      <th class="col-small">Nr. </th>
       <th>Tiltak</th>
       <th>Frist</th>
       <th>Ansvarlig</th>

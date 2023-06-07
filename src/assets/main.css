@@ -195,3 +195,11 @@ button {
   margin: 7px;
   cursor: pointer;
 }
+
+.col-small {
+  width: 40px;
+}
+
+.col-medium {
+  width: 50%;
+}
