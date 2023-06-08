@@ -231,9 +231,6 @@ export default {
   </table>
   <button class="copy-button" @click="copyTable('tiltakList')">Kopier tabell</button>
 
-
-
-
   <h2>Vurdert risiko med eksisterende tiltak</h2>
   <br />
     <MatrixTable :hendelser="hendelser"  />
