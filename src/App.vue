@@ -123,7 +123,8 @@ export default {
     <div class="hendelse" v-for="(hendelse, index) in hendelser">
 
       <h3>Hendelse {{ index + 1 }}</h3>
-      <textarea placeholder="Uønsket (situasjon) skjer slik at (verdi) blir utsatt for (trussel)" class="medium-text" v-model="hendelse.hendelse"></textarea>
+      <textarea placeholder="[Trussel] utnytter {Sårbarhet] for/til å skade/stjele [Verdi]" class="medium-text" v-model="hendelse.hendelse"></textarea>
+
       <div>
         <button v-if="hendelse.sannsynlighet && hendelse.konsekvens && !hendelse.update"
                 @click="toggleUpdate(hendelse)">Endre risiko
