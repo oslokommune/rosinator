@@ -1,5 +1,4 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
 import MatrixTable   from "./components/MatrixTable.vue";
 import MatrixTableEtter   from "./components/MatrixTableEtter.vue";
 import MatrixTableEdit from "./components/MatrixTableEdit.vue";
