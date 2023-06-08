@@ -9,8 +9,6 @@
     "test:unit": "vitest --environment jsdom --root src/"
   },
   "dependencies": {
-    "@oslokommune/punkt-assets": "^0.21.0",
-    "@oslokommune/punkt-css": "^0.21.3",
     "html2pdf.js": "^0.10.1",
     "vue": "^3.2.45"
   },
