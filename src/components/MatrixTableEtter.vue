@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import common from './common.js';
+import common from '../common.js';
 export default {
   created() {
     this.getClass = common.getClass;

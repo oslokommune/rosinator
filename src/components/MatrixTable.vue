@@ -38,7 +38,7 @@
     <button class="copy-button" @click="copyTable('risk-matrix')">Kopier tabell</button>
 </template>
 <script>
-import common from './common.js';
+import common from '../common.js';
 export default {
 
   name: 'MatrixTable',

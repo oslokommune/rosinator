@@ -38,6 +38,7 @@
   </table>
 </template>
 <script>
+import common from '../common.js';
 export default {
   name: 'MatrixTableEdit',
   props: {
@@ -53,20 +54,16 @@ export default {
       return [5, 4, 3, 2, 1];
     }
   },
+  created() {
+    this.getClass = common.getClass;
+  },
   methods: {
     pushHendelse(sannsynlighet, konsekvens) {
-      console.log(this.etter)
-      console.log(this.hendelse)
-      console.log(this.hendelse.konsekvens)
-      console.log(this.hendelse.sannsynlighet)
-      console.log(this.hendelse.update_etter)
       if(this.hendelse.update_etter) {
-        console.log('UPDATING ETTER')
         this.hendelse.sannsynlighet_etter = sannsynlighet;
         this.hendelse.konsekvens_etter = konsekvens;
        // this.hendelse.update_etter = false;
       } else {
-        console.log("UPDATING NORMAL")
         this.hendelse.sannsynlighet = sannsynlighet;
         this.hendelse.konsekvens = konsekvens;
         //this.hendelse.update = false;
@@ -78,62 +75,6 @@ export default {
       this.hendelse.update = false;
       this.hendelse.update_etter = false;
     },
-
-    getClass(sannsynlighet, konsekvens) {
-      if (sannsynlighet === 5 ) {
-        if (konsekvens < 3) {
-          return "yellow"
-        }
-        return "red";
-      }
-
-      if (sannsynlighet === 4) {
-        if (konsekvens === 1) {
-          return "green"
-        }
-        else if (konsekvens < 4) {
-          return "yellow"
-        }
-        else {
-          return "red";
-        }
-      }
-
-      if (sannsynlighet === 3) {
-        if (konsekvens < 3) {
-          return "green"
-        }
-        else if(konsekvens === 3) {
-          return "yellow"
-        }
-        else {
-          return "red";
-        }
-      }
-
-      if (sannsynlighet === 2) {
-        if (konsekvens < 3) {
-          return "green"
-        }
-        else if(konsekvens < 5) {
-          return "yellow"
-        }
-        else {
-          return "red"
-        }
-      }
-
-      if (sannsynlighet === 1) {
-        if (konsekvens < 3) {
-          return "green"
-        }
-        else {
-          return "yellow"
-        }
-      }
-
-      return "green"
-    }
   }
 }
 </script>

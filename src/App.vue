@@ -5,7 +5,7 @@ import MatrixTableEdit from "./components/MatrixTableEdit.vue";
 </script>
 
 <script>
-import common from './components/common.js';
+import common from './common.js';
 export default {
   data() {
     return {
