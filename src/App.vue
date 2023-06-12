@@ -143,7 +143,7 @@ export default {
     <button @click="loadJson">Last inn fra Json</button>
     <button @click="exportJsonToConsole">Json til console</button>
     <br />
-    <span v-if="this.saveEmoji">Lagrer ... 💾</span>
+    <span v-if="saveEmoji">Lagrer ... 💾</span>
   </nav>
   <div id="edit" class="edit">
   <h2>Hendelser</h2>
