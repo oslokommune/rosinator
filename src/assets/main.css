@@ -211,3 +211,9 @@ button {
   float:right;
   margin-top: 5px;
 }
+
+/** I need a fancy animation when a button is pressed please */
+button:active {
+  transform: scale(0.9);
+  transition: transform 0.5s;
+}

@@ -10,17 +10,28 @@ export default {
   data() {
     return {
       hendelser: [{hendelse: '', sannsynlighet: '', konsekvens: '', tiltak: []}],
-      tiltak: []
+      tiltak: [],
+      saveEmoji : false
     }
   },
   created() {
     this.copyTable = common.copyTable;
   },
+  beforeCreate() {
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 's') {
+          e.preventDefault();
+          this.save();
+        }
+      });
+  },
   methods: {
     //  export json
     exportJson() {
+      let tmp = this.$data;
+      delete tmp.saveEmoji;
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([JSON.stringify(this.$data, null, 2)], {
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(tmp, null, 2)], {
         type: "application/json"
       }));
       a.setAttribute("download", "data.json");
@@ -30,13 +41,22 @@ export default {
     },
     //export json to console
     exportJsonToConsole() {
-      console.log(JSON.stringify(this.$data, null, 2));
+      let tmp = this.$data;
+      delete tmp.saveEmoji;
+      console.log(JSON.stringify(tmp, null, 2));
     },
     // save to local storage
     save() {
+      this.saveEmoji = true;
+      setTimeout(() => {
+        this.saveEmoji = false;
+      }, 1000);
+
       let {hendelser, tiltak} = this;
       localStorage.setItem('hendelser', JSON.stringify(hendelser));
       localStorage.setItem('tiltak', JSON.stringify(tiltak));
+      // Have a save emoji flash briefly
+
     },
     // load from local storage
     load() {
@@ -110,7 +130,6 @@ export default {
     toggleTiltakSannsynlighet(tiltak) {
       tiltak.sannsynlighet = !tiltak.sannsynlighet;
     },
-
   }
 }
 </script>
@@ -123,6 +142,8 @@ export default {
     <button @click="exportJson">Lagre Json</button>
     <button @click="loadJson">Last inn fra Json</button>
     <button @click="exportJsonToConsole">Json til console</button>
+    <br />
+    <span v-if="this.saveEmoji">Lagrer ... 💾</span>
   </nav>
   <div id="edit" class="edit">
   <h2>Hendelser</h2>

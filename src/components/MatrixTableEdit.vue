@@ -33,7 +33,7 @@
       <td class="no-border"></td>
       <td class="no-border"></td>
       <td class="no-border"></td>
-      <td class="no-border" style="text-align:right"><bold>Konsekvens</bold></td>
+      <td class="no-border" style="text-align:right"><strong>Konsekvens</strong></td>
     </tr>
   </table>
 </template>

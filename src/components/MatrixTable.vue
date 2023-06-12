@@ -32,7 +32,7 @@
         <td class="no-border"></td>
         <td class="no-border"></td>
         <td class="no-border"></td>
-        <td class="no-border" style="text-align:right"><bold>Konsekvens</bold></td>
+        <td class="no-border" style="text-align:right"><strong>Konsekvens</strong></td>
       </tr>
     </table>
     <button class="copy-button" @click="copyTable('risk-matrix')">Kopier tabell</button>
