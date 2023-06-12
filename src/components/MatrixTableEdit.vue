@@ -27,20 +27,15 @@
       <td>Alvorlig</td>
       <td>Svært alvorlig</td>
     </tr>
-    <tr class="no-border">
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border" style="text-align:right"><strong>Konsekvens</strong></td>
-    </tr>
+    <KonsekvensRow />
   </table>
 </template>
 <script>
 import common from '../common.js';
+import KonsekvensRow from "@/components/parts/KonsekvensRow.vue";
 export default {
   name: 'MatrixTableEdit',
+  components: {KonsekvensRow},
   props: {
     hendelse : {},
     index : '',

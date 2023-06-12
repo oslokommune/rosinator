@@ -26,21 +26,16 @@
       <td>Alvorlig</td>
       <td>Svært alvorlig</td>
     </tr>
-    <tr class="no-border">
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border"></td>
-      <td class="no-border" style="text-align:right"><strong>Konsekvens</strong></td>
-    </tr>
+    <KonsekvensRow />
   </table>
   <button class="copy-button" @click="copyTable('etter')">Kopier tabell</button>
 </template>
 
 <script>
 import common from '../common.js';
+import KonsekvensRow from "@/components/parts/KonsekvensRow.vue";
 export default {
+  components: {KonsekvensRow},
   created() {
     this.getClass = common.getClass;
     this.copyTable = common.copyTable;
