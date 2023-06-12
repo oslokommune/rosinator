@@ -118,8 +118,12 @@ export default {
     slettTiltak(tiltaket, tiltak) {
       // iterate hendelser, and delete tiltaket from all lists that include it in hendlerser.tiltak
       for (let hendelse of this.hendelser) {
+        // iterate hendelse.tiltak, and delete tiltaket from all lists that include it in hendelse.tiltak
+        for (let currentTiltak of hendelse.tiltak)
+          if(currentTiltak.beskrivelse === tiltaket.beskrivelse) {
+            hendelse.tiltak.splice(hendelse.tiltak.indexOf(tiltaket), 1);
+          }
         if (hendelse.tiltak.includes(tiltaket)) {
-          hendelse.tiltak.splice(hendelse.tiltak.indexOf(tiltaket), 1);
         }
       }
       tiltak.splice(tiltak.indexOf(tiltaket), 1)
