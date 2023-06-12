@@ -1,4 +1,4 @@
-<script setup>
+<script setup xmlns="http://www.w3.org/1999/html">
 import MatrixTable   from "./components/MatrixTable.vue";
 import MatrixTableEtter   from "./components/MatrixTableEtter.vue";
 import MatrixTableEdit from "./components/MatrixTableEdit.vue";
@@ -64,7 +64,7 @@ export default {
         this.tiltak = [];
       }
       // push
-      this.tiltak.push({beskrivelse: '', frist: '', ansvarlig: '' });
+      this.tiltak.push({beskrivelse: '', frist: '', ansvarlig: '', konsekvens: false, sannsynlighet: false });
     },
 
     toggleUpdate(hendelse) {
@@ -103,7 +103,14 @@ export default {
         }
       }
       tiltak.splice(tiltak.indexOf(tiltaket), 1)
-    }
+    },
+    toggleTiltakKonsekvens(tiltak) {
+      tiltak.konsekvens = !tiltak.konsekvens;
+    },
+    toggleTiltakSannsynlighet(tiltak) {
+      tiltak.sannsynlighet = !tiltak.sannsynlighet;
+    },
+
   }
 }
 </script>
@@ -166,11 +173,16 @@ export default {
       <th class="col-medium">Beskrivelse</th>
       <th>Frist</th>
       <th>Ansvarlig</th>
+      <th>Risikoreduserende</th>
       <tr v-for="(tiltaket, index) in tiltak">
         <td>{{ index + 1 }}</td>
         <td><textarea class="small-text" v-model="tiltaket.beskrivelse"></textarea></td>
         <td><textarea class="small-text" v-model="tiltaket.frist"></textarea></td>
         <td><textarea class="small-text" v-model="tiltaket.ansvarlig"></textarea></td>
+        <td class="multi-check">
+          <span @click="toggleTiltakKonsekvens(tiltaket)">Konsekvens: <input type="checkbox" :checked="tiltaket.konsekvens"/></span>
+          <span @click="toggleTiltakSannsynlighet(tiltaket)">Sannsynlighet: <input type="checkbox" :checked="tiltaket.sannsynlighet"/></span>
+        </td>
         <td><button @click="slettTiltak(tiltaket, tiltak)">Slett tiltak</button></td>
       </tr>
     </table>
@@ -219,6 +231,7 @@ export default {
       <th>Tiltak</th>
       <th>Frist</th>
       <th>Ansvarlig</th>
+      <th>Risikoreduserende</th>
     </tr>
 
     <tr v-for="(tiltaket, index) in tiltak">
@@ -226,6 +239,7 @@ export default {
       <td>{{ tiltaket.beskrivelse }}</td>
       <td>{{ tiltaket.frist }}</td>
       <td>{{ tiltaket.ansvarlig }}</td>
+      <td><span v-if="tiltaket.konsekvens">K </span> <span v-if="tiltaket.sannsynlighet">S </span></td>
     </tr>
 
   </table>
