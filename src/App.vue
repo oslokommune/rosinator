@@ -60,8 +60,19 @@ export default {
     },
     // load from local storage
     load() {
-      this.hendelser = JSON.parse(localStorage.getItem('hendelser'));
-      this.tiltak = JSON.parse(localStorage.getItem('tiltak'));
+
+      let hendelserLocal = localStorage.getItem('hendelser');
+      // log hendelserLocal
+      console.log("LOKALE HENDELSER")
+      console.log(hendelserLocal);
+
+      if(hendelserLocal) {
+        this.hendelser = JSON.parse(hendelserLocal);
+      }
+      let tiltakLocal = localStorage.getItem('tiltak');
+      if (tiltakLocal) {
+        this.tiltak = JSON.parse(tiltakLocal);
+      }
     },
     // load from json
     loadJson() {
