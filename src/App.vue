@@ -11,6 +11,7 @@ export default {
     return {
       hendelser: [{hendelse: '', sannsynlighet: '', konsekvens: '', tiltak: []}],
       tiltak: [],
+      tittel: '',
       saveEmoji : false
     }
   },
@@ -24,6 +25,11 @@ export default {
           this.save();
         }
       });
+  },
+  watch: {
+    tittel(newTitle) {
+      document.title = 'Rosinator ' + newTitle;
+    },
   },
   methods: {
     //  export json
@@ -55,6 +61,8 @@ export default {
       let {hendelser, tiltak} = this;
       localStorage.setItem('hendelser', JSON.stringify(hendelser));
       localStorage.setItem('tiltak', JSON.stringify(tiltak));
+      localStorage.setItem('tittel', this.tittel);
+
       // Have a save emoji flash briefly
 
     },
@@ -62,16 +70,16 @@ export default {
     load() {
 
       let hendelserLocal = localStorage.getItem('hendelser');
-      // log hendelserLocal
-      console.log("LOKALE HENDELSER")
-      console.log(hendelserLocal);
-
       if(hendelserLocal) {
         this.hendelser = JSON.parse(hendelserLocal);
       }
       let tiltakLocal = localStorage.getItem('tiltak');
       if (tiltakLocal) {
         this.tiltak = JSON.parse(tiltakLocal);
+      }
+      let tittelLocal = localStorage.getItem('tittel');
+      if (tittelLocal) {
+        this.tittel = tittelLocal;
       }
     },
     // load from json
@@ -150,7 +158,6 @@ export default {
 </script>
 
 <template>
-
   <nav>
     <button @click="save">Lagre</button>
     <button @click="load">Last inn</button>
@@ -161,9 +168,9 @@ export default {
     <span v-if="saveEmoji">Lagrer ... 💾</span>
   </nav>
   <div id="edit" class="edit">
+  <h1>ROS for: <input v-model="tittel" /></h1>
   <h2>Hendelser</h2>
     <div class="hendelse" v-for="(hendelse, index) in hendelser">
-
       <h3>Hendelse {{ index + 1 }}</h3>
       <textarea placeholder="[Trussel] utnytter {Sårbarhet] for/til å skade/stjele [Verdi]" class="medium-text" v-model="hendelse.hendelse"></textarea>
 
@@ -226,7 +233,7 @@ export default {
   </div>
 
   <div id="preview" class="preview">
-
+<h1>ROS for: {{ tittel }}</h1>
 <h2>Identifiserte hendelser</h2>
   <table id="hendelseList" class="data">
     <tr>
