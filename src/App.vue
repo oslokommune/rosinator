@@ -12,7 +12,9 @@ export default {
       hendelser: [{hendelse: '', sannsynlighet: '', konsekvens: '', tiltak: []}],
       tiltak: [],
       tittel: '',
-      saveEmoji : false
+      saveEmoji : false,
+      loadOverlay: false,
+      savedLocal: []
     }
   },
   created() {
@@ -36,6 +38,8 @@ export default {
     exportJson() {
       let tmp = this.$data;
       delete tmp.saveEmoji;
+      delete tmp.loadOverlay;
+      delete tmp.savedLocal;
       const a = document.createElement("a");
       a.href = URL.createObjectURL(new Blob([JSON.stringify(tmp, null, 2)], {
         type: "application/json"
@@ -49,6 +53,8 @@ export default {
     exportJsonToConsole() {
       let tmp = this.$data;
       delete tmp.saveEmoji;
+      delete tmp.loadOverlay;
+      delete tmp.savedLocal;
       console.log(JSON.stringify(tmp, null, 2));
     },
     // save to local storage
@@ -58,29 +64,36 @@ export default {
         this.saveEmoji = false;
       }, 1000);
 
-      let {hendelser, tiltak} = this;
-      localStorage.setItem('hendelser', JSON.stringify(hendelser));
-      localStorage.setItem('tiltak', JSON.stringify(tiltak));
       localStorage.setItem('tittel', this.tittel);
 
-      // Have a save emoji flash briefly
+      // save hendelser and tiltak under the key tittel if it exists
+      if (this.tittel) {
+        localStorage.setItem(this.tittel, JSON.stringify(this.$data));
+      } else {
+        localStorage.setItem('hendelser', JSON.stringify(hendelser));
+        localStorage.setItem('tiltak', JSON.stringify(tiltak));
+      }
 
     },
     // load from local storage
     load() {
-
-      let hendelserLocal = localStorage.getItem('hendelser');
-      if(hendelserLocal) {
-        this.hendelser = JSON.parse(hendelserLocal);
-      }
-      let tiltakLocal = localStorage.getItem('tiltak');
-      if (tiltakLocal) {
-        this.tiltak = JSON.parse(tiltakLocal);
-      }
-      let tittelLocal = localStorage.getItem('tittel');
-      if (tittelLocal) {
-        this.tittel = tittelLocal;
-      }
+      this.loadOverlay = true;
+      let savedLocal = Object.keys(localStorage);
+      // filter out hendelser, tiltak and tittel from savedLocal
+      savedLocal = savedLocal.filter((item) => {
+        return item !== 'hendelser' && item !== 'tiltak' && item !== 'tittel';
+      });
+      this.savedLocal = savedLocal;
+    },
+    loadFromLocalStorage(key) {
+      let data = JSON.parse(localStorage.getItem(key));
+      this.hendelser = data.hendelser;
+      this.tiltak = data.tiltak;
+      this.tittel = key;
+      this.loadOverlay = false;
+    },
+    loadSelected() {
+      this.loadOverlay = false;
     },
     // load from json
     loadJson() {
@@ -88,6 +101,7 @@ export default {
       let data = JSON.parse(json);
       this.hendelser = data.hendelser;
       this.tiltak = data.tiltak;
+      this.tittel = data.tittel;
     },
     pushHendelse() {
       // create if empty
@@ -167,6 +181,15 @@ export default {
     <br />
     <span v-if="saveEmoji">Lagrer ... 💾</span>
   </nav>
+
+  <div class="loading-menu" v-if="loadOverlay">
+    <h1>Velg ROS</h1>
+    <button v-for="item in this.savedLocal" @click="loadFromLocalStorage(item)">{{ item }}</button>
+    <br />
+    <button @click="loadSelected">Lukk</button>
+  </div>
+  <div class="loading-overlay" v-if="loadOverlay"></div>
+
   <div id="edit" class="edit">
   <h1>ROS for: <input v-model="tittel" /></h1>
   <h2>Hendelser</h2>
