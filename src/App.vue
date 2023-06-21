@@ -134,6 +134,21 @@ export default {
       this.hendelser = data.hendelser;
       this.tiltak = data.tiltak;
       this.tittel = data.tittel;
+      this.loadOverlay = false;
+    },
+    loadJsonFromFile(filePath){
+      // load json from user file input
+      let file = filePath.target.files[0];
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = () => {
+        let data = JSON.parse(reader.result);
+        this.hendelser = data.hendelser;
+        this.tiltak = data.tiltak;
+        this.tittel = data.tittel;
+        this.version = data.version;
+      };
+      this.loadOverlay = false;
     },
     pushHendelse() {
       // create if empty
@@ -207,17 +222,21 @@ export default {
   <nav>
     <button @click="save">Lagre</button>
     <button @click="load">Last inn</button>
-    <button @click="exportJson">Lagre ROS til fil</button>
-    <button @click="loadJson">Last inn fra Json</button>
     <button @click="exportJsonToConsole">Json til console</button>
-    <button @click="exportLocalToJson">Lagre alle ROSer til fil</button>
+    <button @click="exportJson">Eksporter gjeldene ROS</button>
+    <button @click="exportLocalToJson">Eksporter alle ROS</button>
     <br />
     <span v-if="saveEmoji">Lagrer {{ tittel }} ... 💾</span>
   </nav>
 
   <div class="loading-menu" v-if="loadOverlay">
-    <h1>Velg ROS</h1>
+    <h2>Velg ROS fra lokal maskin:</h2>
     <button v-for="item in savedLocal" @click="loadFromLocalStorage(item)">{{ item }}</button>
+    <br />
+    <h2>Last inn fra Json:</h2>
+    <button @click="loadJson">Lim inn</button> <strong>eller</strong>
+    <input style="display: none" id="files" type="file" @change="loadJsonFromFile" />
+    <label for="files">Velg fil</label>
     <br />
     <button @click="loadSelected">Lukk</button>
   </div>
