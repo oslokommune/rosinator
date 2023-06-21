@@ -14,6 +14,7 @@ export default {
       tittel: '',
       saveEmoji : false,
       loadOverlay: false,
+      version: '1.0.0',
       savedLocal: []
     }
   },
@@ -44,7 +45,8 @@ export default {
       a.href = URL.createObjectURL(new Blob([JSON.stringify(tmp, null, 2)], {
         type: "application/json"
       }));
-      a.setAttribute("download", "data.json");
+      // filename string  is title + version
+      a.setAttribute("download", this.tittel + "-" + this.version + ".json");
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -119,6 +121,7 @@ export default {
       this.hendelser = data.hendelser;
       this.tiltak = data.tiltak;
       this.tittel = key;
+      this.version = data.version;
       this.loadOverlay = false;
     },
     loadSelected() {
@@ -209,7 +212,7 @@ export default {
     <button @click="exportJsonToConsole">Json til console</button>
     <button @click="exportLocalToJson">Lagre alle ROSer til fil</button>
     <br />
-    <span v-if="saveEmoji">Lagrer ... 💾</span>
+    <span v-if="saveEmoji">Lagrer {{ tittel }} ... 💾</span>
   </nav>
 
   <div class="loading-menu" v-if="loadOverlay">
@@ -221,7 +224,7 @@ export default {
   <div class="loading-overlay" v-if="loadOverlay"></div>
 
   <div id="edit" class="edit">
-  <h1>ROS for: <input v-model="tittel" /></h1>
+  <h1>ROS for: <input v-model="tittel" /> Versjon: <input v-model="version" /></h1>
   <h2>Hendelser</h2>
     <div class="hendelse" v-for="(hendelse, index) in hendelser">
       <h3>Hendelse {{ index + 1 }}</h3>
