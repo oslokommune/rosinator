@@ -57,6 +57,35 @@ export default {
       delete tmp.savedLocal;
       console.log(JSON.stringify(tmp, null, 2));
     },
+    exportLocalToJson() {
+      // export local storage to json
+      let tmp = ""
+      for (let i = 0; i < localStorage.length; i++) {
+
+
+        let key = localStorage.key(i);
+        if(key === 'tittel' || key === 'hendelser' || key === 'tiltak') continue;
+
+        //console.log(key)
+
+        var tmpItem = localStorage.getItem(key);
+
+        tmp += key + ":\n" + JSON.stringify(JSON.parse(tmpItem), null, 2);
+        tmp += "\n\n";
+      }
+
+      // save tmp string to file
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([tmp], {
+        type: "text/plain"
+      }));
+
+      a.setAttribute("download", "all-ros.txt");
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    },
+
     // save to local storage
     save() {
       this.saveEmoji = true;
@@ -175,16 +204,17 @@ export default {
   <nav>
     <button @click="save">Lagre</button>
     <button @click="load">Last inn</button>
-    <button @click="exportJson">Lagre Json</button>
+    <button @click="exportJson">Lagre ROS til fil</button>
     <button @click="loadJson">Last inn fra Json</button>
     <button @click="exportJsonToConsole">Json til console</button>
+    <button @click="exportLocalToJson">Lagre alle ROSer til fil</button>
     <br />
     <span v-if="saveEmoji">Lagrer ... 💾</span>
   </nav>
 
   <div class="loading-menu" v-if="loadOverlay">
     <h1>Velg ROS</h1>
-    <button v-for="item in this.savedLocal" @click="loadFromLocalStorage(item)">{{ item }}</button>
+    <button v-for="item in savedLocal" @click="loadFromLocalStorage(item)">{{ item }}</button>
     <br />
     <button @click="loadSelected">Lukk</button>
   </div>
