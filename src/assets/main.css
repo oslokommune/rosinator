@@ -199,7 +199,7 @@ button {
 }
 
 .col-medium {
-  width: 50%;
+  width: 45%;
 }
 
 .multi-check {
@@ -261,5 +261,9 @@ input[type="file"] + label {
   background: var(--color-blue-dark);
   /* border: 1px solid #666666; */
   font-size: 13px;
-  height: 31px;
+  height: 32px;
+}
+
+.up-down {
+  white-space: nowrap;
 }

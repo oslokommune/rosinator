@@ -1,8 +1,7 @@
 <script setup xmlns="http://www.w3.org/1999/html">
-import MatrixTable   from "./components/MatrixTable.vue";
-import MatrixTableEtter   from "./components/MatrixTableEtter.vue";
-import MatrixTableEdit from "./components/MatrixTableEdit.vue";
-</script>
+import MatrixTable from "./components/MatrixTable.vue";
+import MatrixTableEtter from "./components/MatrixTableEtter.vue";
+import MatrixTableEdit from "./components/MatrixTableEdit.vue";</script>
 
 <script>
 import common from './common.js';
@@ -158,6 +157,30 @@ export default {
       // push
       this.hendelser.push({hendelse: '', sannsynlighet: '', konsekvens: '', tiltak: []});
     },
+    moveUp(item, list) {
+      let index = list.indexOf(item);
+      // if index is 0, do nothing
+      if (this.isFirst(item, list)) return;
+      // else, swap with previous
+      let tmp = list[index - 1];
+      list[index - 1] = item;
+      list[index] = tmp;
+    },
+    moveDown(item, list) {
+      let index = list.indexOf(item);
+      // if index is last, do nothing
+      if (this.isLast(item, list)) return;
+      // else, swap with next
+      let tmp = list[index + 1];
+      list[index + 1] = item;
+      list[index] = tmp;
+    },
+    isLast(item, list) {
+      return list.indexOf(item) === list.length - 1
+    },
+    isFirst(item, list) {
+      return list.indexOf(item) === 0
+    },
     pushTiltak() {
       // create if empty
       if (!this.tiltak) {
@@ -246,7 +269,12 @@ export default {
   <h1>ROS for: <input v-model="tittel" /> Versjon: <input v-model="version" /></h1>
   <h2>Hendelser</h2>
     <div class="hendelse" v-for="(hendelse, index) in hendelser">
-      <h3>Hendelse {{ index + 1 }}</h3>
+      <h3>Hendelse {{ index + 1 }}
+        <span style="float:right">
+          <button v-if="!isFirst(hendelse, hendelser)" @click="moveUp(hendelse, hendelser)">⬆</button>
+          <button v-if="!isLast(hendelse, hendelser)" @click="moveDown(hendelse, hendelser)">⬇</button>
+        </span>
+      </h3>
       <textarea placeholder="[Trussel] utnytter {Sårbarhet] for/til å skade/stjele [Verdi]" class="medium-text" v-model="hendelse.hendelse"></textarea>
 
       <div>
@@ -301,7 +329,12 @@ export default {
           <span @click="toggleTiltakKonsekvens(tiltaket)">Konsekvens: <input type="checkbox" :checked="tiltaket.konsekvens"/></span>
           <span @click="toggleTiltakSannsynlighet(tiltaket)">Sannsynlighet: <input type="checkbox" :checked="tiltaket.sannsynlighet"/></span>
         </td>
-        <td><button @click="slettTiltak(tiltaket, tiltak)">Slett tiltak</button></td>
+        <td><button @click="slettTiltak(tiltaket, tiltak)">Slett tiltak</button>
+        </td>
+        <td class="up-downg">
+          <button v-if="!isFirst(tiltaket, tiltak)" @click="moveUp(tiltaket, tiltak)">⬆</button>
+          <button v-if="!isLast(tiltaket, tiltak)" @click="moveDown(tiltaket, tiltak)">⬇</button>
+        </td>
       </tr>
     </table>
   <button @click="pushTiltak">Nytt tiltak</button>
