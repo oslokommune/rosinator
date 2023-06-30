@@ -121,6 +121,7 @@ export default {
       this.tiltak = data.tiltak;
       this.tittel = key;
       this.version = data.version;
+      this.fixAssociations()
       this.loadOverlay = false;
     },
     loadSelected() {
@@ -133,6 +134,7 @@ export default {
       this.hendelser = data.hendelser;
       this.tiltak = data.tiltak;
       this.tittel = data.tittel;
+      this.fixAssociations()
       this.loadOverlay = false;
     },
     loadJsonFromFile(filePath){
@@ -146,9 +148,32 @@ export default {
         this.tiltak = data.tiltak;
         this.tittel = data.tittel;
         this.version = data.version;
+        this.fixAssociations();
       };
       this.loadOverlay = false;
     },
+    fixAssociations() {
+      // iterate through hendelser if beskrivelse match a tiltak, set that as refrence
+      this.hendelser.forEach((hendelse) => {
+        // make a copy of hendelse.tiltak
+        let tmpTiltak = JSON.parse(JSON.stringify(hendelse.tiltak));
+        // delete hendlese tiltak
+        hendelse.tiltak = [];
+
+        tmpTiltak.forEach((tiltaket) => {
+          this.tiltak.forEach((tiltakLocal) => {
+            if(tiltaket.beskrivelse === tiltakLocal.beskrivelse &&
+                tiltaket.ansvarlig === tiltakLocal.ansvarlig &&
+                tiltaket.frist === tiltakLocal.frist &&
+                tiltaket.konsekvens === tiltakLocal.konsekvens &&
+                tiltaket.sannsynlighet === tiltakLocal.sannsynlighet){
+              hendelse.tiltak.push(tiltakLocal);
+            }
+          });
+        });
+      });
+    },
+
     pushHendelse() {
       // create if empty
       if (!this.hendelser) {
@@ -216,7 +241,6 @@ export default {
       } else {
         hendelse.tiltak.push(tiltaket);
       }
-      console.log(hendelse.tiltak[0]);
     },
     slettTiltak(tiltaket, tiltak) {
       // iterate hendelser, and delete tiltaket from all lists that include it in hendlerser.tiltak
@@ -297,6 +321,7 @@ export default {
 
           <p @click="toggleTiltakForHendelse(hendelse, tiltaket)">
             <input  type="checkbox" :checked="hendelse.tiltak.includes(tiltaket)" />
+
             {{ tiltaket.beskrivelse }}
 
           </p>
