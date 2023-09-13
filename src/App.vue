@@ -60,20 +60,29 @@ export default {
     },
     exportLocalToJson() {
       // export local storage to json
-      let tmp = ""
+      let tmp = "{ \"Roser\" : [\n"
       for (let i = 0; i < localStorage.length; i++) {
-
-
         let key = localStorage.key(i);
         if(key === 'tittel' || key === 'hendelser' || key === 'tiltak') continue;
+
+         //Adding commas for json validity
+        if (i > 0 && i < localStorage.length ) {
+              tmp += ",\n"
+        }
+
+
 
         //console.log(key)
 
         var tmpItem = localStorage.getItem(key);
 
-        tmp += key + ":\n" + JSON.stringify(JSON.parse(tmpItem), null, 2);
-        tmp += "\n\n";
+        console.log(tmpItem)
+
+
+        tmp += JSON.stringify(JSON.parse(tmpItem), null, 2)
+
       }
+      tmp += "]}"
 
       // save tmp string to file
       const a = document.createElement("a");
@@ -143,7 +152,9 @@ export default {
       let reader = new FileReader();
       reader.readAsText(file);
       reader.onload = () => {
+        console.log(reader.result)
         let data = JSON.parse(reader.result);
+
         this.hendelser = data.hendelser;
         this.tiltak = data.tiltak;
         this.tittel = data.tittel;
