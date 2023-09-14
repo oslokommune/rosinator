@@ -12,13 +12,13 @@ export default {
       tiltak: [],
       tittel: '',
       saveEmoji : false,
-      loadOverlay: false,
       version: '1.0.0',
       savedLocal: []
     }
   },
   created() {
     this.copyTable = common.copyTable;
+    this.filterLocal();
   },
   beforeCreate() {
       document.addEventListener('keydown', (e) => {
@@ -37,9 +37,6 @@ export default {
     //  export json
     exportJson() {
       let tmp = this.$data;
-      delete tmp.saveEmoji;
-      delete tmp.loadOverlay;
-      delete tmp.savedLocal;
       const a = document.createElement("a");
       a.href = URL.createObjectURL(new Blob([JSON.stringify(tmp, null, 2)], {
         type: "application/json"
@@ -49,14 +46,6 @@ export default {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    },
-    //export json to console
-    exportJsonToConsole() {
-      let tmp = this.$data;
-      delete tmp.saveEmoji;
-      delete tmp.loadOverlay;
-      delete tmp.savedLocal;
-      console.log(JSON.stringify(tmp, null, 2));
     },
     exportLocalToJson() {
       // export local storage to json
@@ -70,14 +59,7 @@ export default {
               tmp += ",\n"
         }
 
-
-
-        //console.log(key)
-
         var tmpItem = localStorage.getItem(key);
-
-        console.log(tmpItem)
-
 
         tmp += JSON.stringify(JSON.parse(tmpItem), null, 2)
 
@@ -112,11 +94,10 @@ export default {
         localStorage.setItem('hendelser', JSON.stringify(hendelser));
         localStorage.setItem('tiltak', JSON.stringify(tiltak));
       }
+      this.filterLocal();
 
     },
-    // load from local storage
-    load() {
-      this.loadOverlay = true;
+    filterLocal() {
       let savedLocal = Object.keys(localStorage);
       // filter out hendelser, tiltak and tittel from savedLocal
       savedLocal = savedLocal.filter((item) => {
@@ -144,7 +125,6 @@ export default {
       this.tiltak = data.tiltak;
       this.tittel = data.tittel;
       this.fixAssociations()
-      this.loadOverlay = false;
     },
     loadJsonFromFile(filePath){
       // load json from user file input
@@ -152,16 +132,31 @@ export default {
       let reader = new FileReader();
       reader.readAsText(file);
       reader.onload = () => {
-        console.log(reader.result)
-        let data = JSON.parse(reader.result);
+        let topLevel = JSON.parse(reader.result);
+        console.log(topLevel)
 
-        this.hendelser = data.hendelser;
-        this.tiltak = data.tiltak;
-        this.tittel = data.tittel;
-        this.version = data.version;
-        this.fixAssociations();
+        // if first element is an array named ROSER, loop and echo all elements
+        if(topLevel.Roser){
+          topLevel.Roser.forEach((element) => {
+            this.hendelser = element.hendelser;
+            this.tiltak = element.tiltak;
+            this.tittel = element.tittel;
+            this.version = element.version;
+            this.fixAssociations();
+            this.save();
+
+          });
+        } else {
+          // if not, echo the first element
+          let data = JSON.parse(reader.result);
+          this.hendelser = data.hendelser;
+          this.tiltak = data.tiltak;
+          this.tittel = data.tittel;
+          this.version = data.version;
+          this.fixAssociations();
+          this.save();
+        }
       };
-      this.loadOverlay = false;
     },
     fixAssociations() {
       // iterate through hendelser if beskrivelse match a tiltak, set that as refrence
@@ -272,36 +267,28 @@ export default {
     toggleTiltakSannsynlighet(tiltak) {
       tiltak.sannsynlighet = !tiltak.sannsynlighet;
     },
+    isActive(item) {
+      if (this.$data && this.$data.tittel) {
+        return this.$data.tittel === item;
+      }
+      return false
+    },
   }
 }
 </script>
 
 <template>
   <nav>
-    <button @click="save">Lagre</button>
-    <button @click="load">Last inn</button>
-    <button @click="exportJsonToConsole">Json til console</button>
-    <button @click="exportJson">Eksporter gjeldene ROS</button>
-    <button @click="exportLocalToJson">Eksporter alle ROS</button>
-    <br />
-    <span v-if="saveEmoji">Lagrer {{ tittel }} ... 💾</span>
+    <input style="display: none" id="files" type="file" @change="loadJsonFromFile" /> <label class="ros-tab" for="files">Last inn</label>
+    <button :class="{ active: isActive(item) }" class="ros-tab" v-for="item in savedLocal" @click="loadFromLocalStorage(item)">{{ item }}</button>
+    <button class="ros-tab export" @click="exportLocalToJson">Eksporter alle ROS</button>
   </nav>
-
-  <div class="loading-menu" v-if="loadOverlay">
-    <h2>Velg ROS fra lokal maskin:</h2>
-    <button v-for="item in savedLocal" @click="loadFromLocalStorage(item)">{{ item }}</button>
-    <br />
-    <h2>Last inn fra Json:</h2>
-    <button @click="loadJson">Lim inn</button> <strong>eller</strong>
-    <input style="display: none" id="files" type="file" @change="loadJsonFromFile" />
-    <label for="files">Velg fil</label>
-    <br />
-    <button @click="loadSelected">Lukk</button>
-  </div>
-  <div class="loading-overlay" v-if="loadOverlay"></div>
-
   <div id="edit" class="edit">
-  <h1>ROS for: <input v-model="tittel" /> Versjon: <input v-model="version" /></h1>
+  <span v-if="saveEmoji">Lagrer {{ tittel }} ... 💾</span>
+  <h1>ROS for: <input v-model="tittel" /> Versjon: <input v-model="version" />
+    <span v-if="$data.tittel"><button @click="save">Lagre</button> <button @click="exportJson">Eksporter</button></span>
+  </h1>
+
   <h2>Hendelser</h2>
     <div class="hendelse" v-for="(hendelse, index) in hendelser">
       <h3>Hendelse {{ index + 1 }}

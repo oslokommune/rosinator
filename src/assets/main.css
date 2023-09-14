@@ -94,13 +94,13 @@ td.red {
 
 nav {
   background: var(--color-beige-dark);
-  height: 50px;
   width: 100%;
-  padding: 0 2rem;
   z-index: 1000;
-  top: 0;
+  top: -19px;
   position: fixed;
-
+  padding-top: 4px;
+  padding-left: 20px;
+  padding-right: 25px;
 }
 table {
   width: 100%;
@@ -127,7 +127,7 @@ table.data td, table.data th {
 
 div.preview, div.edit {
   background-color: var(--color-blue-light);
-  margin: 40px 0;
+  margin: 32px 0;
   width: 50%;
   float: left;
   padding: 1rem 2rem;
@@ -259,11 +259,29 @@ input[type="file"] + label {
   cursor: pointer;
   display: inline-block;
   background: var(--color-blue-dark);
-  /* border: 1px solid #666666; */
   font-size: 13px;
-  height: 32px;
+  height: 31px;
 }
 
 .up-down {
   white-space: nowrap;
+}
+
+.ros-tab {
+  position: relative;
+  bottom: -9px;
+  background: #034b45;
+  border-radius: 8px 8px 0px 0px;
+  margin: 1px;
+
+}
+
+.export {
+  float: right;
+  top: 18px;
+}
+
+.active {
+  font-weight: bolder;
+  background-color: var(--color-blue-dark);
 }
