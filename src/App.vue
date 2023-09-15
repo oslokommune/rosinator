@@ -36,6 +36,7 @@ export default {
   methods: {
     //  export json
     exportJson() {
+      this.save();
       let tmp = this.$data;
       const a = document.createElement("a");
       a.href = URL.createObjectURL(new Blob([JSON.stringify(tmp, null, 2)], {
@@ -48,6 +49,7 @@ export default {
       document.body.removeChild(a);
     },
     exportLocalToJson() {
+      this.save();
       // export local storage to json
       let tmp = "{ \"Roser\" : [\n"
       for (let i = 0; i < localStorage.length; i++) {
