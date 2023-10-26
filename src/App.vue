@@ -116,18 +116,6 @@ export default {
       this.fixAssociations()
       this.loadOverlay = false;
     },
-    loadSelected() {
-      this.loadOverlay = false;
-    },
-    // load from json
-    loadJson() {
-      let json = prompt('Paste JSON here');
-      let data = JSON.parse(json);
-      this.hendelser = data.hendelser;
-      this.tiltak = data.tiltak;
-      this.tittel = data.tittel;
-      this.fixAssociations()
-    },
     loadJsonFromFile(filePath){
       // load json from user file input
       let file = filePath.target.files[0];
